@@ -11,4 +11,9 @@ package Framework;
  */
 public class Member extends User{
     
+    public Member(String username, String password, String email) {
+        super(username, password, email);
+        super.setPermission(Permission.LOW);
+    }
+    
 }

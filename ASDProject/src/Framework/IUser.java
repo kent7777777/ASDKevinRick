@@ -10,5 +10,5 @@ package Framework;
  * @author coolk
  */
 public interface IUser {
-    
+    public void Login();
 }

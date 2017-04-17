@@ -5,6 +5,7 @@
  */
 package Framework;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,5 +13,27 @@ import java.util.List;
  * @author coolk
  */
 public class ShoppingCart implements IShoppingCart{
-    List<Product> products;
+    List<Item> items;
+    
+    public ShoppingCart(){
+        items = new ArrayList<>();
+    }
+    
+    public void addItem(Item item){
+        items.add(item);
+    }
+    
+    public void deleteItem(Item item){
+        items.remove(item);
+    }
+    
+    public List<Item> getCart(){
+        return items;
+    }
+    
+    public void clearCart(){
+        items.clear();
+    }
+    
+    
 }
