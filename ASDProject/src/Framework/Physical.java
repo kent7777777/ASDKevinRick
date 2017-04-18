@@ -9,6 +9,6 @@ package Framework;
  *
  * @author coolk
  */
-public class Physical extends Product{
+public abstract class Physical extends Product{
     
 }

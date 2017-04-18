@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Framework;
+package LibraryProducts;
+
+import Framework.Physical;
 
 /**
  *
  * @author coolk
  */
-public class Item {
-    private int id;
-    private Product product;
-    private User owner;
+public class Book extends Physical{
+    
 }

@@ -13,7 +13,7 @@ import java.util.List;
  * @author coolk
  */
 public class ShoppingCart implements IShoppingCart{
-    List<Item> items;
+    private List<Item> items;
     
     public ShoppingCart(){
         items = new ArrayList<>();
@@ -34,6 +34,4 @@ public class ShoppingCart implements IShoppingCart{
     public void clearCart(){
         items.clear();
     }
-    
-    
 }

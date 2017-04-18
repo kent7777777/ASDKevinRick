@@ -10,5 +10,8 @@ package Framework;
  * @author coolk
  */
 public abstract class Product implements IProduct {
+    private String productIdentifyer;
+    private String productName;
+    private double cost;
     
 }

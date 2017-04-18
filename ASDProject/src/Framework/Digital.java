@@ -9,6 +9,6 @@ package Framework;
  *
  * @author coolk
  */
-public class Digital extends Product {
+public abstract class Digital extends Product {
     
 }
