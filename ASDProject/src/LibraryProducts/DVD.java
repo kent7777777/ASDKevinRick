@@ -13,4 +13,8 @@ import Framework.Physical;
  */
 public class DVD extends Physical{
     
+    public DVD(String productIdentifier, String productName, double costToStock, double price) {
+        super(productIdentifier, productName, costToStock, price);
+    }
+    
 }

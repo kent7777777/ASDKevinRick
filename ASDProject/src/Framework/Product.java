@@ -10,8 +10,34 @@ package Framework;
  * @author coolk
  */
 public abstract class Product implements IProduct {
-    private String productIdentifyer;
+    private String productIdentifier;
     private String productName;
-    private double cost;
+    private double costToStock;
+    private double price;
+
+    public Product(String productIdentifier, String productName, double costToStock, double price) {
+        this.productIdentifier = productIdentifier;
+        this.productName = productName;
+        this.costToStock = costToStock;
+        this.price = price;
+    }
+
+    public double getCostToStock() {
+        return costToStock;
+    }
+
+    public void setCostToStock(double costToStock) {
+        this.costToStock = costToStock;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+    
+    
     
 }

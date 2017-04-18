@@ -11,4 +11,8 @@ package Framework;
  */
 public abstract class Physical extends Product{
     
+    public Physical(String productIdentifier, String productName, double costToStock, double price) {
+        super(productIdentifier, productName, costToStock, price);
+    }
+    
 }

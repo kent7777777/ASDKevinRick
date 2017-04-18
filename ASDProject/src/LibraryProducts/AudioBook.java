@@ -13,4 +13,8 @@ import Framework.Physical;
  */
 public class AudioBook extends Physical{
     
+    public AudioBook(String productIdentifier, String productName, double costToStock, double price) {
+        super(productIdentifier, productName, costToStock, price);
+    }
+    
 }

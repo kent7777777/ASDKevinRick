@@ -11,4 +11,8 @@ package Framework;
  */
 public abstract class Digital extends Product {
     
+    public Digital(String productIdentifier, String productName, double costToStock, double price) {
+        super(productIdentifier, productName, costToStock, price);
+    }
+    
 }
