@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Framework.DAO;
+package GUI.ControllerPackage;
+
+import Framework.User;
 
 /**
  *
- * @author yeerick
+ * @author coolk
  */
-public interface IDAO {
+public class LoginController {
+    private User loggedinUser;
+    
     
 }
