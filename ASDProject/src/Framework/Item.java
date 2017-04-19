@@ -13,4 +13,20 @@ public class Item {
     private int id;
     private Product product;
     private User owner;
+
+    public Item(int id, Product product, User owner) {
+        this.id = id;
+        this.product = product;
+        this.owner = owner;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+    
+    
 }

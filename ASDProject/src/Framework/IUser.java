@@ -11,4 +11,5 @@ package Framework;
  */
 public interface IUser {
     public void Login();
+    public void checkoutCart();
 }

@@ -36,8 +36,5 @@ public abstract class Product implements IProduct {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-    
-    
-    
+    }  
 }

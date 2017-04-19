@@ -33,6 +33,12 @@ public abstract class User implements IUser {
         //TODO implement login
     }
     
+    @Override
+    public void checkoutCart(){
+        ownedItems.addAll(cart.getCart());
+        cart.clearCart();
+    }
+    
     
     public String getUsername() {
         return username;

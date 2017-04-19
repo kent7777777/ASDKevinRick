@@ -10,5 +10,7 @@ package Framework;
  * @author coolk
  */
 public interface IShoppingCart {
-    
+    public void addItem(Item item);
+    public void deleteItem(Item item);
+    public void clearCart();
 }

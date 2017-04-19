@@ -19,10 +19,12 @@ public class ShoppingCart implements IShoppingCart{
         items = new ArrayList<>();
     }
     
+    @Override
     public void addItem(Item item){
         items.add(item);
     }
     
+    @Override
     public void deleteItem(Item item){
         items.remove(item);
     }
@@ -31,6 +33,7 @@ public class ShoppingCart implements IShoppingCart{
         return items;
     }
     
+    @Override
     public void clearCart(){
         items.clear();
     }
