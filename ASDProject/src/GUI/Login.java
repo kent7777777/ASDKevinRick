@@ -9,7 +9,7 @@ package GUI;
  *
  * @author coolk
  */
-public class Login extends javax.swing.JFrame {
+public class Login extends GUIParent {
     
     /**
      * Creates new form Login
@@ -123,8 +123,8 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        GUIController.getController().loginOff();
-        GUIController.getController().homepageOn();
+        GUIController.getController().switchScene(this, GUIController.getController().getHomepage());
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -162,7 +162,7 @@ public class Login extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                GUIController.getController().loginOn();
+                GUIController.getController().start();
             }
         });
     }

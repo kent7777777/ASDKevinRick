@@ -9,12 +9,12 @@ package GUI;
  *
  * @author coolk
  */
-public class BookSearch extends GUIParent {
+public class AudiobookSearch extends GUIParent {
 
     /**
      * Creates new form BookSearch
      */
-    public BookSearch() {
+    public AudiobookSearch() {
         initComponents();
     }
 

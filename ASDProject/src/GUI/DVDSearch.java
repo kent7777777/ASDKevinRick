@@ -9,12 +9,12 @@ package GUI;
  *
  * @author coolk
  */
-public class BookSearch extends GUIParent {
+public class DVDSearch extends GUIParent {
 
     /**
      * Creates new form BookSearch
      */
-    public BookSearch() {
+    public DVDSearch() {
         initComponents();
     }
 
@@ -41,17 +41,17 @@ public class BookSearch extends GUIParent {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Title", "Author", "Copies"
+                "Title", "Copies"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -60,7 +60,7 @@ public class BookSearch extends GUIParent {
         });
         jScrollPane2.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(20);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(20);
         }
 
         jButton1.setText("Search");
