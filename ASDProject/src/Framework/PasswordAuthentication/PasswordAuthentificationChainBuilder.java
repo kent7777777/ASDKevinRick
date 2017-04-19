@@ -29,13 +29,4 @@ public class PasswordAuthentificationChainBuilder {
         hasher.nextAgent = authenficater;
         handler = validator;
     }
-
-    public static void main(String[] args) {
-        PasswordAuthentificationChainBuilder pb = new PasswordAuthentificationChainBuilder();
-        String love = pb.getHandler().handleRequest("Jackyloveemily", null);
-        System.out.println(love);
-        System.out.println(pb.getHandler().handleRequest("Jackyloveemily", null));
-        System.out.println(pb.getHandler().handleRequest("Jackyloasdmily", love));
-
-    }
 }
