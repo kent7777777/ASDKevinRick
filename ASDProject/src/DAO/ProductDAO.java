@@ -10,6 +10,7 @@ import Framework.Factories.UserFactory;
 import Framework.PasswordAuthentication.PasswordAuthentificationChainBuilder;
 import Framework.Permission;
 import Framework.Product;
+import Framework.User;
 import LibraryProducts.LibraryFatories.AudioBookFactory;
 import LibraryProducts.LibraryFatories.BookFactory;
 import LibraryProducts.LibraryFatories.DVDFactory;
@@ -31,7 +32,7 @@ import java.util.logging.Logger;
 public class ProductDAO {
     
     public List<Product> findAll(Connection cn) throws SQLException {
-        String query = "SELECT * FROM user";
+        String query = "SELECT * FROM product";
         ResultSet rs = null;
         PreparedStatement st = cn.prepareStatement(query);
         rs = st.executeQuery();
@@ -65,6 +66,42 @@ public class ProductDAO {
         }
         return products;
     }
+    
+    public Product findByProductIdentifier(Connection cn, String productIdentifier) throws SQLException {
+        String query = "SELECT * FROM product WHERE productidentifier = ?";
+        ResultSet rs = null;
+
+        PreparedStatement st = cn.prepareStatement(query);
+        st.setString(1, productIdentifier);
+        rs = st.executeQuery();
+        while (rs.next()) {
+            String category = rs.getString("category");
+            ProductFactory pf;
+            Product product;
+            if(category.equals("EBook")){
+                pf = new BookFactory();
+                product = pf.createDigitalProduct(rs.getString("productidentifier"), rs.getString("productname"), rs.getDouble("costtostock"), rs.getDouble("price"));
+            } else if (category.equals("EAudioBook")){
+                pf = new AudioBookFactory();
+                product = pf.createDigitalProduct(rs.getString("productidentifier"), rs.getString("productname"), rs.getDouble("costtostock"), rs.getDouble("price"));
+            } else if (category.equals("EDVD")){
+                pf = new DVDFactory();
+                product = pf.createDigitalProduct(rs.getString("productidentifier"), rs.getString("productname"), rs.getDouble("costtostock"), rs.getDouble("price"));
+            } else if (category.equals("Book")){
+                pf = new DVDFactory();
+                product = pf.createPhysicalProduct(rs.getString("productidentifier"), rs.getString("productname"), rs.getDouble("costtostock"), rs.getDouble("price"));
+            } else if (category.equals("AudioBook")){
+                pf = new DVDFactory();
+                product = pf.createPhysicalProduct(rs.getString("productidentifier"), rs.getString("productname"), rs.getDouble("costtostock"), rs.getDouble("price"));
+            } else {
+                pf = new DVDFactory();
+                product = pf.createPhysicalProduct(rs.getString("productidentifier"), rs.getString("productname"), rs.getDouble("costtostock"), rs.getDouble("price"));
+            }
+            return product;
+        }
+        return null;
+    }
+    
     
     public void addProduct(Connection cn, String category, String productIdentifier, String productName, double costToStock, double price) throws SQLException {
         String query = "INSERT INTO product (productidentifier, productname, costtostock, price, category) VALUES (?, ?, ?, ?, ?)";
