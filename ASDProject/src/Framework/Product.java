@@ -22,6 +22,14 @@ public abstract class Product implements IProduct {
         this.price = price;
     }
 
+    public String getProductIdentifier() {
+        return productIdentifier;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+    
     public double getCostToStock() {
         return costToStock;
     }

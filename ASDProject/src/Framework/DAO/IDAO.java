@@ -5,10 +5,22 @@
  */
 package Framework.DAO;
 
+import Framework.IData;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+
 /**
  *
  * @author yeerick
  */
 public interface IDAO {
+<<<<<<< HEAD
+=======
+    public List<IData> findALL(Connection cn) throws SQLException;
+    public IData findUnique(Connection cn, String identifier) throws SQLException;
+    public void AddData(Connection cn, IData data) throws SQLException;
+    public void deleteData(Connection cn, String identifier) throws SQLException;
+>>>>>>> origin/master
     
 }
