@@ -9,7 +9,7 @@ package Framework;
  *
  * @author coolk
  */
-public class Item {
+public class Item implements IData{
     private int id;
     private Product product;
     private User owner;
