@@ -5,6 +5,8 @@
  */
 package GUI;
 
+import Framework.User;
+
 /**
  *
  * @author coolk
@@ -18,6 +20,8 @@ public class GUIController {
     private Cart cart;
     private Users users;
     private Account account;
+    
+    private User user;
     
     
     private static GUIController controller = new GUIController();
@@ -80,6 +84,15 @@ public class GUIController {
     public Account getAccount() {
         return account;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
     
     
 }

@@ -173,6 +173,7 @@ public class Homepage extends GUIParent {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        GUIController.getController().getUsers().getUsers();
         GUIController.getController().switchScene(this, GUIController.getController().getUsers());
     }//GEN-LAST:event_jButton5ActionPerformed
 

@@ -5,14 +5,20 @@
  */
 package GUI.ControllerPackage;
 
+
 import Framework.User;
+import GUI.GUIController;
 
 /**
  *
  * @author coolk
  */
 public class LoginController {
-    private User loggedinUser;
     
+    public boolean login(String username, String password){
+        User user = null;
+        GUIController.getController().setUser(user);
+        return true;
+    }
     
 }

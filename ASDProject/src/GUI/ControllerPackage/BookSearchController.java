@@ -6,10 +6,13 @@
 package GUI.ControllerPackage;
 
 import Framework.Item;
+import Framework.Product;
 import LibraryProducts.Book;
 import LibraryProducts.EBook;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -18,11 +21,15 @@ import java.util.List;
 public class BookSearchController {
     
     
-    public List<Book> getBooks(String bookName){
-        return new ArrayList<>();
+    public Object[] getBooks(String bookName){
+        return new Object[]{new Book[]{new Book("1", "Book1", 1, 1), new Book("2", "Book2", 1, 1)}, new int[]{3, 8}};
     }
     
-    public List<Book> getEBooks(String ebookName){
-        return new ArrayList<>();
+    public Object[] getEBooks(String ebookName){
+        return new Object[]{new EBook[10], new int[10]};
+    }
+    
+    public boolean putBookInCart(Product product){
+        return true;
     }
 }

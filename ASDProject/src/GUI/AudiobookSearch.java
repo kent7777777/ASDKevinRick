@@ -5,17 +5,26 @@
  */
 package GUI;
 
+import Framework.Product;
+import GUI.ControllerPackage.AudiobookSearchController;
+import LibraryProducts.AudioBook;
+import LibraryProducts.Book;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author coolk
  */
 public class AudiobookSearch extends GUIParent {
-
+    private AudiobookSearchController controller;
+    private AudioBook[] audiobooks;
     /**
      * Creates new form BookSearch
      */
     public AudiobookSearch() {
+        controller = new AudiobookSearchController();
         initComponents();
+        error.setVisible(false);
     }
 
     /**
@@ -29,22 +38,22 @@ public class AudiobookSearch extends GUIParent {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
+        audiobookTable = new javax.swing.JTable();
+        searchField = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        eAudiobook = new javax.swing.JCheckBox();
+        jButton3 = new javax.swing.JButton();
+        error = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(700, 500));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        audiobookTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Title", "Author", "Copies"
@@ -58,12 +67,23 @@ public class AudiobookSearch extends GUIParent {
                 return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(20);
+        jScrollPane2.setViewportView(audiobookTable);
+        if (audiobookTable.getColumnModel().getColumnCount() > 0) {
+            audiobookTable.getColumnModel().getColumn(2).setPreferredWidth(20);
         }
 
+        searchField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchFieldActionPerformed(evt);
+            }
+        });
+
         jButton1.setText("Search");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Homepage");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -71,6 +91,13 @@ public class AudiobookSearch extends GUIParent {
                 jButton2ActionPerformed(evt);
             }
         });
+
+        eAudiobook.setText("EAudiobook");
+
+        jButton3.setText("Put in Cart");
+
+        error.setForeground(new java.awt.Color(255, 51, 51));
+        error.setText("Error");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -80,26 +107,38 @@ public class AudiobookSearch extends GUIParent {
                 .addContainerGap(76, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(49, 49, 49)
-                        .addComponent(jButton1))
+                        .addComponent(jButton1)
+                        .addGap(48, 48, 48)
+                        .addComponent(eAudiobook))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2)
+                            .addComponent(jButton3)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(error)
+                                .addGap(28, 28, 28))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1)
+                    .addComponent(eAudiobook))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(74, 74, 74)
+                .addComponent(jButton3)
+                .addGap(18, 18, 18)
+                .addComponent(error)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2))
         );
 
@@ -123,17 +162,50 @@ public class AudiobookSearch extends GUIParent {
         GUIController.getController().switchScene(this, GUIController.getController().getHomepage());
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        DefaultTableModel model = (DefaultTableModel) audiobookTable.getModel();
+
+        Object[] productCopies;
+        
+        int[] copies;
+        
+        if(eAudiobook.isSelected()){
+            productCopies = controller.getEAudiobooks(searchField.getText());
+        }else{
+            productCopies = controller.getAudiobooks(searchField.getText());
+        }
+        
+        audiobooks = (AudioBook[]) productCopies[0];
+        copies = (int[]) productCopies[1];
+        
+        for(int i = 0; i < audiobooks.length; i++){
+            model.addRow(new Object[]{
+                audiobooks[i].getProductName(), audiobooks[i].getProductIdentifier(), copies[i]
+            });
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
+        Product audiobook = audiobooks[audiobookTable.getSelectedRow()];
+        if(!controller.putAudiobookInCart(audiobook)){
+            error.setVisible(true);
+        }
+    }//GEN-LAST:event_searchFieldActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable audiobookTable;
+    private javax.swing.JCheckBox eAudiobook;
+    private javax.swing.JLabel error;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField searchField;
     // End of variables declaration//GEN-END:variables
 }
