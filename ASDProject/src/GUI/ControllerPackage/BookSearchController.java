@@ -5,6 +5,7 @@
  */
 package GUI.ControllerPackage;
 
+import Framework.Item;
 import LibraryProducts.Book;
 import LibraryProducts.EBook;
 import java.util.ArrayList;
@@ -17,11 +18,11 @@ import java.util.List;
 public class BookSearchController {
     
     
-    public List<String> getBooks(String bookName){
+    public List<Book> getBooks(String bookName){
         return new ArrayList<>();
     }
     
-    public List<String> getEBooks(String ebookName){
+    public List<Book> getEBooks(String ebookName){
         return new ArrayList<>();
     }
 }

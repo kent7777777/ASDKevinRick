@@ -5,23 +5,27 @@
  */
 package GUI;
 
+import Framework.Item;
 import GUI.ControllerPackage.BookSearchController;
 import LibraryProducts.Book;
 import LibraryProducts.EBook;
 import java.util.List;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.text.TableView;
+
+
 
 /**
  *
  * @author coolk
  */
 public class BookSearch extends GUIParent {
-    BookSearchController controller;
+    private BookSearchController controller;
     /**
      * Creates new form BookSearch
      */
     public BookSearch() {
+        this.
         initComponents();
     }
 
@@ -139,13 +143,14 @@ public class BookSearch extends GUIParent {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        List<String> books;
+        DefaultTableModel model = (DefaultTableModel) bookTable.getModel();
+
+        List<Book> books;
         if(ebookBox.isSelected()){
             books = controller.getBooks(searchField.getText());
         }else{
             books = controller.getEBooks(searchField.getText());
         }
-        
         
         
         
