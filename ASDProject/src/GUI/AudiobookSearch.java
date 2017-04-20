@@ -95,6 +95,11 @@ public class AudiobookSearch extends GUIParent {
         eAudiobook.setText("EAudiobook");
 
         jButton3.setText("Put in Cart");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         error.setForeground(new java.awt.Color(255, 51, 51));
         error.setText("Error");
@@ -191,6 +196,10 @@ public class AudiobookSearch extends GUIParent {
             error.setVisible(true);
         }
     }//GEN-LAST:event_searchFieldActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

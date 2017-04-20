@@ -89,6 +89,11 @@ public class Users extends GUIParent {
         });
 
         jButton3.setText("Delete User");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         emailField.setText("Email");
         emailField.setToolTipText("");
@@ -166,7 +171,12 @@ public class Users extends GUIParent {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         LibraryUserFactory userFactory = new LibraryUserFactory();
         User user = userFactory.createUser((String) permissionBox.getSelectedItem(), usernameField.getText(), passwordField.getText(), emailField.getText());
+        controller.addUser(user);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        controller.deleteUser(users[userTable.getSelectedRow()]);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     public void getUsers(){
         DefaultTableModel model = (DefaultTableModel) userTable.getModel();

@@ -5,6 +5,11 @@
  */
 package GUI;
 
+import Framework.Item;
+import Framework.Product;
+import Framework.ShoppingCart;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author coolk
@@ -29,7 +34,7 @@ public class Cart extends GUIParent {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        cartTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -37,18 +42,23 @@ public class Cart extends GUIParent {
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(700, 500));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        cartTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(cartTable);
 
         jButton1.setText("Homepage");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -98,15 +108,18 @@ public class Cart extends GUIParent {
         GUIController.getController().switchScene(this, GUIController.getController().getHomepage());
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    public void updateCart(ShoppingCart cart){
+        DefaultTableModel model = (DefaultTableModel) cartTable.getModel();
+        for(Item p : cart.getCart()){
+            
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable cartTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

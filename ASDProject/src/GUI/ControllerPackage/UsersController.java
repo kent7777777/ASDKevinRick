@@ -17,11 +17,11 @@ public class UsersController {
         return new User[10]; //TODO implement getUser
     }
     
-    public boolean addUser(String username, String password, String email){
+    public boolean addUser(User user){
         return true; //TODO implement addUser
     }
     
     public boolean deleteUser(User user){
-        return true;
+        return true; //TODO implement deleteUser
     }
 }

@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public class BookSearchController {
     
-    
+    //returns an object array with the first field being the product and the second being the number in stock
     public Object[] getBooks(String bookName){
         return new Object[]{new Book[]{new Book("1", "Book1", 1, 1), new Book("2", "Book2", 1, 1)}, new int[]{3, 8}};
     }

@@ -18,7 +18,7 @@ public class LoginController {
     public boolean login(String username, String password){
         User user = null;
         GUIController.getController().setUser(user);
-        return true;
+        return true; //TODO implement login
     }
     
 }

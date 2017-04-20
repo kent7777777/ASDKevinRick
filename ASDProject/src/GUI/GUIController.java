@@ -41,7 +41,9 @@ public class GUIController {
         return controller;
     }
     
-    
+    public void updateCart(){
+        
+    }
     
     
     public void start(){

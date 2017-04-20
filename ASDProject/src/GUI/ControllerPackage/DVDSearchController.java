@@ -17,6 +17,7 @@ import LibraryProducts.EDVD;
 
 public class DVDSearchController {
     
+    //returns an object array with the first field being the product and the second being the number in stock
     public Object[] getDVD(String dvdName){
         return new Object[]{new DVD[10], new int[10]};
     }
