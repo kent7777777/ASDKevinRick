@@ -43,6 +43,8 @@ public class ItemDAO implements IDAO{
             
             Item item = new Item(rs.getInt("id"), product, us);
             items.add(item);
+            item.setDateDue(rs.getDate("dateout"));
+            item.setDateOut(rs.getDate("datedue"));
         }
         return items;
     }
@@ -67,6 +69,8 @@ public class ItemDAO implements IDAO{
             }
             
             Item item = new Item(rs.getInt("id"), product, us);
+            item.setDateDue(rs.getDate("dateout"));
+            item.setDateOut(rs.getDate("datedue"));
             return item;
         }
         return null;
@@ -93,5 +97,17 @@ public class ItemDAO implements IDAO{
         PreparedStatement st = cn.prepareStatement(query);
         st.setInt(1, Integer.parseInt(identifier));
         st.execute();
+    }
+
+    @Override
+    public void updateData(Connection cn, IData data) throws SQLException {
+        String query = "UPDATE item SET username = ?, dateout = ?, datedue = ? WHERE id = ?";
+        PreparedStatement st = cn.prepareStatement(query);
+        Item item = (Item)data;
+        st.setString(1, item.getOwner().getUsername());
+        st.setDate(2, item.getDateOut());
+        st.setDate(3, item.getDateDue());
+        st.setInt(4, item.getId());
+        st.execute();        
     }
 }

@@ -20,6 +20,7 @@ public interface IDAO {
     public IData findUnique(Connection cn, String identifier) throws SQLException;
     public void AddData(Connection cn, IData data) throws SQLException;
     public void deleteData(Connection cn, String identifier) throws SQLException;
+    public void updateData(Connection cn, IData data) throws SQLException;
 
     
 }

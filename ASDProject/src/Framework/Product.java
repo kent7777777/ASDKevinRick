@@ -5,6 +5,9 @@
  */
 package Framework;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author coolk
@@ -14,6 +17,7 @@ public abstract class Product implements IProduct {
     private String productName;
     private double costToStock;
     private double price;
+    
 
     public Product(String productIdentifier, String productName, double costToStock, double price) {
         this.productIdentifier = productIdentifier;
@@ -44,5 +48,6 @@ public abstract class Product implements IProduct {
 
     public void setPrice(double price) {
         this.price = price;
-    }  
+    }
+    
 }

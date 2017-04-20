@@ -10,7 +10,6 @@ import Framework.DAO.UserDAO;
 import Framework.Factories.UserFactory;
 import Framework.IData;
 import Framework.Item;
-import Framework.Permission;
 import Framework.User;
 import LibraryProducts.LibraryFatories.LibraryUserFactory;
 import java.sql.Connection;
@@ -30,9 +29,9 @@ public class UserDAOExtension extends UserDAO {
         String query = "SELECT * FROM user WHERE username = ?";
         String query2 = "SELECT * FROM shoppingcart WHERE username = ?";
         String query3 = "SELECT * FROM item WHERE username = ?";
-        ResultSet rs = null;
-        ResultSet rs2 = null;
-        ResultSet rs3 = null;
+        ResultSet rs;
+        ResultSet rs2;
+        ResultSet rs3;
         ItemDAO id = new ItemDAO();
 
         PreparedStatement st = cn.prepareStatement(query);

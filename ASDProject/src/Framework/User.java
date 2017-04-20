@@ -26,6 +26,7 @@ public abstract class User implements IUser {
         this.password = password;
         this.email = email;
         ownedItems = new ArrayList<>();
+        cart = new ShoppingCart();
     }
     
     @Override
@@ -86,6 +87,14 @@ public abstract class User implements IUser {
 
     public void setItems(List<Item> items){
         this.ownedItems = items;
+    }
+
+    public List<Item> getOwnedItems() {
+        return ownedItems;
+    }
+
+    public void setOwnedItems(List<Item> ownedItems) {
+        this.ownedItems = ownedItems;
     }
     
     

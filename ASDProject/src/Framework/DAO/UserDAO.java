@@ -7,7 +7,9 @@ package Framework.DAO;
 
 import Framework.Factories.UserFactory;
 import Framework.IData;
+import Framework.PasswordAuthentication.PasswordAuthentificationChainBuilder;
 import Framework.Permission;
+import Framework.Product;
 import Framework.User;
 import LibraryProducts.LibraryFatories.LibraryUserFactory;
 import java.sql.Connection;
@@ -109,5 +111,19 @@ public class UserDAO implements IDAO {
             }
         }
         return null;
+    }
+
+    @Override
+    public void updateData(Connection cn, IData data) throws SQLException {
+        String query = "UPDATE user SET password = ?, email = ?, permission = ? WHERE username = ?";
+        PreparedStatement st = cn.prepareStatement(query);
+        User user = (User)data;
+        PasswordAuthentificationChainBuilder pa = new PasswordAuthentificationChainBuilder();
+        String token = pa.getHandler().handleRequest(user.getPassword(), null);
+        st.setString(1, token);
+        st.setString(2, user.getEmail());
+        st.setString(3, user.getPermission().toString());
+        st.setString(4, user.getUsername());
+        st.execute();  
     }
 }

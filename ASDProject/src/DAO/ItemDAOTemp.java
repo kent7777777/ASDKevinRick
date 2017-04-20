@@ -23,7 +23,7 @@ public class ItemDAOTemp {
     
     public List<Item> findAll(Connection cn) throws SQLException {
         String query = "SELECT * FROM item";
-        ResultSet rs = null;
+        ResultSet rs;
         PreparedStatement st = cn.prepareStatement(query);
         rs = st.executeQuery();
         
@@ -41,6 +41,8 @@ public class ItemDAOTemp {
             }
             
             Item item = new Item(rs.getInt("id"), product, us);
+            item.setDateDue(rs.getDate("dateout"));
+            item.setDateOut(rs.getDate("datedue"));
             items.add(item);
         }
         return items;
