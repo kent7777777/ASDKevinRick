@@ -5,6 +5,8 @@
  */
 package Framework;
 
+import java.sql.Date;
+
 /**
  *
  * @author coolk
@@ -13,6 +15,8 @@ public class Item implements IData{
     private int id;
     private Product product;
     private User owner;
+    private Date dateOut;
+    private Date dateDue;
 
     public Item(int id, Product product, User owner) {
         this.id = id;
@@ -35,6 +39,22 @@ public class Item implements IData{
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public Date getDateOut() {
+        return dateOut;
+    }
+
+    public void setDateOut(Date dateOut) {
+        this.dateOut = dateOut;
+    }
+
+    public Date getDateDue() {
+        return dateDue;
+    }
+
+    public void setDateDue(Date dateDue) {
+        this.dateDue = dateDue;
     }
     
     
