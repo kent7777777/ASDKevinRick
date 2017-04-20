@@ -5,7 +5,7 @@
  */
 package Framework.DAO;
 
-import DAO.UserDAO;
+import DAO.UserDAOTemp;
 import Framework.Factories.ProductFactory;
 import Framework.IData;
 import Framework.Item;
@@ -13,7 +13,6 @@ import Framework.Product;
 import Framework.User;
 import LibraryProducts.AudioBook;
 import LibraryProducts.Book;
-import LibraryProducts.DVD;
 import LibraryProducts.EAudioBook;
 import LibraryProducts.EBook;
 import LibraryProducts.EDVD;
@@ -43,8 +42,8 @@ public class ProductDAO implements IDAO{
         List<IData> items = new ArrayList<>();
         
         while (rs.next()) {            
-            DAO.ProductDAO pd = new DAO.ProductDAO();
-            UserDAO ud = new UserDAO();
+            DAO.ProductDAOTEMP pd = new DAO.ProductDAOTEMP();
+            UserDAOTemp ud = new UserDAOTemp();
             
             Product product = pd.findByProductIdentifier(cn, rs.getString("productidentifier"));
             String username = rs.getString("username");

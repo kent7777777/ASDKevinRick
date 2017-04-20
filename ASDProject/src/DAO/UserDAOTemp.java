@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author yeerick
  */
-public class UserDAO {
+public class UserDAOTemp {
 
     public User findByUsername(Connection cn, String username) throws SQLException {
         String query = "SELECT * FROM user WHERE username = ?";

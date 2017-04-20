@@ -29,7 +29,7 @@ import java.util.logging.Logger;
  *
  * @author yeerick
  */
-public class ProductDAO {
+public class ProductDAOTEMP {
     
     public List<Product> findAll(Connection cn) throws SQLException {
         String query = "SELECT * FROM product";
@@ -124,13 +124,13 @@ public class ProductDAO {
     public static void main(String[] args) throws SQLException {
         try (Connection con = DBConnection.getCon()) {
             //ProductDAO pd = new ProductDAO();
-            UserDAO ud = new UserDAO();
+            UserDAOTemp ud = new UserDAOTemp();
             PasswordAuthentificationChainBuilder pa = new PasswordAuthentificationChainBuilder();
             String token = pa.getHandler().handleRequest("123456789", null);
             ud.addUser(con, Permission.HIGH, "kent", token, "kevin@gmail.com");
             //pd.addProduct(con, "EBook", "00001", "Over the Rainbow", 20.0, 25.0);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductDAOTEMP.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

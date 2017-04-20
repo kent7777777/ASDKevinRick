@@ -20,6 +20,15 @@ public class Item implements IData{
         this.owner = owner;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    
     public User getOwner() {
         return owner;
     }

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO;
+package Framework.DAO;
 
+import Framework.IData;
 import Framework.Item;
 import Framework.Product;
 import Framework.User;
@@ -19,20 +20,20 @@ import java.util.List;
  *
  * @author yeerick
  */
-public class ItemDAO {
-    
-    public List<Item> findAll(Connection cn) throws SQLException {
+public class ItemDAO implements IDAO{
+
+    @Override
+    public List<IData> findALL(Connection cn) throws SQLException {
         String query = "SELECT * FROM item";
         ResultSet rs = null;
         PreparedStatement st = cn.prepareStatement(query);
         rs = st.executeQuery();
         
-        List<Item> items = new ArrayList<>();
+        List<IData> items = new ArrayList<>();
         
         while (rs.next()) {            
-            ProductDAO pd = new ProductDAO();
-            UserDAO ud = new UserDAO();
-            
+            DAO.ProductDAOTEMP pd = new DAO.ProductDAOTEMP();
+            DAO.UserDAOTemp ud = new DAO.UserDAOTemp();            
             Product product = pd.findByProductIdentifier(cn, rs.getString("productidentifier"));
             String username = rs.getString("username");
             User us = null;
@@ -45,17 +46,18 @@ public class ItemDAO {
         }
         return items;
     }
-    
-    public Item findAll(Connection cn, int id) throws SQLException {
+
+    @Override
+    public IData findUnique(Connection cn, String identifier) throws SQLException {
         String query = "SELECT * FROM item WHERE id = ?";
         ResultSet rs = null;
         PreparedStatement st = cn.prepareStatement(query);
-        st.setInt(1, id);
+        st.setInt(1, Integer.parseInt(identifier));
         rs = st.executeQuery();
         
         while (rs.next()) {            
-            ProductDAO pd = new ProductDAO();
-            UserDAO ud = new UserDAO();
+            DAO.ProductDAOTEMP pd = new DAO.ProductDAOTEMP();
+            DAO.UserDAOTemp ud = new DAO.UserDAOTemp();
             
             Product product = pd.findByProductIdentifier(cn, rs.getString("productidentifier"));
             String username = rs.getString("username");
@@ -69,22 +71,27 @@ public class ItemDAO {
         }
         return null;
     }
-    
-    public void addItem(Connection cn, int id, String productIdentifier, String username) throws SQLException {
+
+    @Override
+    public void AddData(Connection cn, IData data) throws SQLException {
         String query = "INSERT INTO item (id, productidentifier, username) VALUES (?, ?, ?)";
         PreparedStatement st = cn.prepareStatement(query);
-        st.setInt(1, id);
-        st.setString(2, productIdentifier);
-        st.setString(3, username);
+        Item item = (Item)data;
+        st.setInt(1, item.getId());
+        st.setString(2, item.getProduct().getProductIdentifier());
+        if(item.getOwner() != null){
+            st.setString(3, item.getOwner().getUsername());
+        } else {
+            st.setString(3, null);
+        }
         st.execute();
     }
-    
-    public void deleteItem(Connection cn, int id) throws SQLException {
+
+    @Override
+    public void deleteData(Connection cn, String identifier) throws SQLException {
         String query = "DELETE FROM item WHERE id = ?";
         PreparedStatement st = cn.prepareStatement(query);
-        st.setInt(1, id);
+        st.setInt(1, Integer.parseInt(identifier));
         st.execute();
     }
-    
-    
 }
