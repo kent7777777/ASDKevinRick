@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GUI;
 
 /**
@@ -179,9 +175,13 @@ public class Homepage extends GUIParent {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        GUIController.getController().switchScene(this, GUIController.getController().getAccount());
+        GUIController.getController().getAccount().setInfo();
+        GUIController.getController().switchScene(this, GUIController.getController().getAccount()); 
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    public void setUserLable(String username){
+        usernameLable.setText(username);
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

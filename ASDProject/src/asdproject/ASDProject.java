@@ -27,7 +27,7 @@ public class ASDProject {
     public static void main(String[] args) {
         UserDAOExtension id = new UserDAOExtension();
         UserFactory factory = new LibraryUserFactory();
-        User us = factory.createUser("Admin", "bob", "123", "coolbob7777777@gmail.com");
+        User us = factory.createUser("Admin", "bob", "12345678", "coolbob7777777@gmail.com");
         try(Connection cn = DBConnection.getCon()){
             id.AddData(cn, us);
         } catch (SQLException ex) {

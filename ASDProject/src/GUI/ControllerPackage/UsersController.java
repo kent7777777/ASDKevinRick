@@ -8,10 +8,13 @@ package GUI.ControllerPackage;
 import DAO.DBConnection;
 import DAO.UserDAOExtension;
 import Framework.Factories.UserFactory;
+import Framework.IData;
+import Framework.PasswordAuthentication.PasswordAuthentificationChainBuilder;
 import Framework.User;
 import LibraryProducts.LibraryFatories.LibraryUserFactory;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,25 +31,46 @@ public class UsersController {
     }
     
     public User[] getUsers(){
-        return new User[10]; //TODO implement getUser
-    }
-    
-    public boolean addUser(User user) throws SQLException{
-        UserDAOExtension id = new UserDAOExtension();
+        User[] users = null;
+        UserDAOExtension ud = new UserDAOExtension();
         try(Connection cn = DBConnection.getCon()){
-            id.AddData(cn, user);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+            List<IData> idatas = ud.findALL(cn);
+            users = new User[idatas.size()];
+            for(int i = 0; i < idatas.size(); i++){
+                users[i] = (User)idatas.get(i);
+            }
+            
+        } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return true; //TODO implement addUser
+        return users;
+    }
+    
+    public boolean addUser(User user) throws SQLException{
+        PasswordAuthentificationChainBuilder pa = new PasswordAuthentificationChainBuilder();
+        String validation = pa.getHandler().handleRequest(user.getPassword(), null);
+        if(validation.equals("invalid")){
+            return false;
+        }
+        
+        UserDAOExtension id = new UserDAOExtension();
+        try(Connection cn = DBConnection.getCon()){
+            id.AddData(cn, user);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return true;
     }
     
     public boolean deleteUser(User user){
-        return true; //TODO implement deleteUser
+        UserDAOExtension id = new UserDAOExtension();
+        try(Connection cn = DBConnection.getCon()){
+            id.deleteData(cn, user.getUsername());
+        } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true; 
     }
 }

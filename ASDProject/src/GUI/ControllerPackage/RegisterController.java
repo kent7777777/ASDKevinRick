@@ -5,9 +5,16 @@
  */
 package GUI.ControllerPackage;
 
+import DAO.DBConnection;
+import DAO.UserDAOExtension;
 import Framework.Factories.UserFactory;
+import Framework.PasswordAuthentication.PasswordAuthentificationChainBuilder;
 import Framework.User;
 import LibraryProducts.LibraryFatories.LibraryUserFactory;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,7 +28,21 @@ public class RegisterController {
     }
     
     public boolean createMember(String username, String password, String email){
+        PasswordAuthentificationChainBuilder pa = new PasswordAuthentificationChainBuilder();
+        String validation = pa.getHandler().handleRequest(password, null);
+        if(validation.equals("invalid")){
+            return false;
+        }
+        
         User user = factory.createUser("Member", username, password, email);
+        UserDAOExtension id = new UserDAOExtension();
+        
+        try(Connection cn = DBConnection.getCon()){
+            id.AddData(cn, user);
+        } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         return true;
     }
 }

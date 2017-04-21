@@ -46,6 +46,10 @@ public class GUIController {
         cart.updateCart(user.getCart());
     }
     
+    public void setUsername(){
+        homepage.setUserLable(user.getUsername());
+    }
+    
     
     public void start(){
         login.setVisible(true);
