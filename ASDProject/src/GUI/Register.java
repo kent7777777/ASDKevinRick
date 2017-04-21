@@ -5,24 +5,19 @@
  */
 package GUI;
 
-import Framework.Item;
-import Framework.Product;
-import Framework.ShoppingCart;
-import GUI.ControllerPackage.CartController;
-import javax.swing.table.DefaultTableModel;
+import GUI.ControllerPackage.RegisterController;
 
 /**
  *
  * @author coolk
  */
-public class Cart extends GUIParent {
-    private CartController controller;
-    private ShoppingCart cart;
+public class Register extends GUIParent{
+    RegisterController controller;
     /**
-     * Creates new form Cart
+     * Creates new form Register
      */
-    
-    public Cart() {
+    public Register() {
+        controller = new RegisterController();
         initComponents();
     }
 
@@ -36,42 +31,31 @@ public class Cart extends GUIParent {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        cartTable = new javax.swing.JTable();
+        usernameField = new javax.swing.JTextField();
+        passwordField = new javax.swing.JTextField();
+        emailField = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(700, 500));
+        jPanel1.setPreferredSize(new java.awt.Dimension(500, 500));
 
-        cartTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        usernameField.setText("Username");
 
-            },
-            new String [] {
-                "Title"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class
-            };
+        passwordField.setText("Password");
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(cartTable);
+        emailField.setText("Email");
 
-        jButton1.setText("Homepage");
+        jButton1.setText("Register");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Remove");
+        jButton2.setText("Login");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -82,23 +66,32 @@ public class Cart extends GUIParent {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(122, 122, 122)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(passwordField)
+                        .addComponent(usernameField)
+                        .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(128, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jButton1))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton2))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 69, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(173, 173, 173)
+                .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
+                .addComponent(jButton2))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -119,30 +112,22 @@ public class Cart extends GUIParent {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        GUIController.getController().switchScene(this, GUIController.getController().getHomepage());
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        controller.removeItem(cart.getCart().get(cartTable.getSelectedRow()));
+        GUIController.getController().switchScene(this, GUIController.getController().getLogin());
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    
-    
-    public void updateCart(ShoppingCart c){
-        cart = c;
-        DefaultTableModel model = (DefaultTableModel) cartTable.getModel();
-        for(Item p : cart.getCart()){
-            model.addRow(new Object[]{p.getProduct().getProductName()});
-        }
-    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        controller.createMember(usernameField.getText(), passwordField.getText(), emailField.getText());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable cartTable;
+    private javax.swing.JTextField emailField;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField passwordField;
+    private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
 }

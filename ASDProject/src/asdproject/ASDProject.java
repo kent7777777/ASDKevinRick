@@ -5,6 +5,16 @@
  */
 package asdproject;
 
+import DAO.DBConnection;
+import DAO.UserDAOExtension;
+import Framework.Factories.UserFactory;
+import Framework.User;
+import LibraryProducts.LibraryFatories.LibraryUserFactory;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author yeerick
@@ -15,7 +25,16 @@ public class ASDProject {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        UserDAOExtension id = new UserDAOExtension();
+        UserFactory factory = new LibraryUserFactory();
+        User us = factory.createUser("Admin", "bob", "123", "coolbob7777777@gmail.com");
+        try(Connection cn = DBConnection.getCon()){
+            id.AddData(cn, us);
+        } catch (SQLException ex) {
+            Logger.getLogger(ASDProject.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            Logger.getLogger(ASDProject.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

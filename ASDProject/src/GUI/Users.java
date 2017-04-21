@@ -8,6 +8,9 @@ package GUI;
 import Framework.User;
 import GUI.ControllerPackage.UsersController;
 import LibraryProducts.LibraryFatories.LibraryUserFactory;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -171,7 +174,11 @@ public class Users extends GUIParent {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         LibraryUserFactory userFactory = new LibraryUserFactory();
         User user = userFactory.createUser((String) permissionBox.getSelectedItem(), usernameField.getText(), passwordField.getText(), emailField.getText());
-        controller.addUser(user);
+        try {
+            controller.addUser(user);
+        } catch (SQLException ex) {
+            Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

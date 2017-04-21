@@ -147,7 +147,7 @@ public class Login extends GUIParent {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        GUIController.getController().switchScene(this, GUIController.getController().getRegister());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

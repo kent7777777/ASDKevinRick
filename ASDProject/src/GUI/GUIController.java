@@ -20,9 +20,9 @@ public class GUIController {
     private Cart cart;
     private Users users;
     private Account account;
+    private Register register;
     
     private User user;
-    
     
     private static GUIController controller = new GUIController();
     
@@ -35,6 +35,7 @@ public class GUIController {
         cart = new Cart();
         users = new Users();
         account = new Account();
+        register = new Register();
     }
     
     public static GUIController getController(){
@@ -42,7 +43,7 @@ public class GUIController {
     }
     
     public void updateCart(){
-        
+        cart.updateCart(user.getCart());
     }
     
     
@@ -87,6 +88,10 @@ public class GUIController {
         return account;
     }
 
+    public Register getRegister() {
+        return register;
+    }
+    
     public User getUser() {
         return user;
     }
