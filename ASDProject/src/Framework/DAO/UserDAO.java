@@ -80,7 +80,9 @@ public class UserDAO implements IDAO {
         PreparedStatement st = cn.prepareStatement(query);
         User us = (User)data;
         st.setString(1, us.getUsername());
-        st.setString(2, us.getPassword());
+        PasswordAuthentificationChainBuilder pa = new PasswordAuthentificationChainBuilder();
+        String token = pa.getHandler().handleRequest(us.getPassword(), null);
+        st.setString(2, token);
         st.setString(3, us.getEmail());
         if(us.getPermission() == Permission.HIGH){
             st.setString(4, "HIGH");
