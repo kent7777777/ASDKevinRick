@@ -9,9 +9,11 @@ import Framework.Item;
 import Framework.Product;
 import Framework.User;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,8 +43,10 @@ public class ItemDAOTemp {
             }
             
             Item item = new Item(rs.getInt("id"), product, us);
-            item.setDateDue(rs.getDate("dateout"));
-            item.setDateOut(rs.getDate("datedue"));
+            LocalDate dateout = new Date(rs.getDate("dateout").getTime()).toLocalDate(); 
+            item.setDateOut(dateout);
+            LocalDate datedue = new Date(rs.getDate("datedue").getTime()).toLocalDate();
+            item.setDateDue(datedue);   
             items.add(item);
         }
         return items;

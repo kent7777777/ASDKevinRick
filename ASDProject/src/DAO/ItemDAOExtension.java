@@ -14,10 +14,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -44,8 +45,10 @@ public class ItemDAOExtension extends ItemDAO {
             }
 
             Item item = new Item(rs.getInt("id"), product, us);
-            item.setDateDue(rs.getDate("dateout"));
-            item.setDateOut(rs.getDate("datedue"));
+            LocalDate dateout = new Date(rs.getDate("dateout").getTime()).toLocalDate(); 
+            item.setDateOut(dateout);
+            LocalDate datedue = new Date(rs.getDate("datedue").getTime()).toLocalDate();
+            item.setDateDue(datedue);   
             items.add(item);
         }
         return items;

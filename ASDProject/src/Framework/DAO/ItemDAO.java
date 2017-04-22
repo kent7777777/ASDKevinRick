@@ -5,22 +5,29 @@
  */
 package Framework.DAO;
 
+import DAO.DBConnection;
 import Framework.IData;
 import Framework.Item;
 import Framework.Product;
 import Framework.User;
+import LibraryProducts.Book;
+import LibraryProducts.EBook;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author yeerick
  */
-public class ItemDAO implements IDAO{
+public class ItemDAO implements IDAO {
 
     @Override
     public List<IData> findALL(Connection cn) throws SQLException {
@@ -28,23 +35,29 @@ public class ItemDAO implements IDAO{
         ResultSet rs = null;
         PreparedStatement st = cn.prepareStatement(query);
         rs = st.executeQuery();
-        
+
         List<IData> items = new ArrayList<>();
-        
-        while (rs.next()) {            
+
+        while (rs.next()) {
             DAO.ProductDAOTEMP pd = new DAO.ProductDAOTEMP();
-            DAO.UserDAOTemp ud = new DAO.UserDAOTemp();            
+            DAO.UserDAOTemp ud = new DAO.UserDAOTemp();
             Product product = pd.findByProductIdentifier(cn, rs.getString("productidentifier"));
             String username = rs.getString("username");
             User us = null;
-            if(username != null){
+            if (username != null) {
                 us = ud.findByUsername(cn, username);
             }
-            
+
             Item item = new Item(rs.getInt("id"), product, us);
             items.add(item);
-            item.setDateDue(rs.getDate("dateout"));
-            item.setDateOut(rs.getDate("datedue"));
+            if (rs.getDate("dateout") != null) {
+                LocalDate dateout = new Date(rs.getDate("dateout").getTime()).toLocalDate();
+                item.setDateOut(dateout);
+            }
+            if (rs.getDate("dateout") != null) {
+                LocalDate datedue = new Date(rs.getDate("datedue").getTime()).toLocalDate();
+                item.setDateDue(datedue);
+            }
         }
         return items;
     }
@@ -56,21 +69,27 @@ public class ItemDAO implements IDAO{
         PreparedStatement st = cn.prepareStatement(query);
         st.setInt(1, Integer.parseInt(identifier));
         rs = st.executeQuery();
-        
-        while (rs.next()) {            
+
+        while (rs.next()) {
             DAO.ProductDAOTEMP pd = new DAO.ProductDAOTEMP();
             DAO.UserDAOTemp ud = new DAO.UserDAOTemp();
-            
+
             Product product = pd.findByProductIdentifier(cn, rs.getString("productidentifier"));
             String username = rs.getString("username");
             User us = null;
-            if(username != null){
+            if (username != null) {
                 us = ud.findByUsername(cn, username);
             }
-            
+
             Item item = new Item(rs.getInt("id"), product, us);
-            item.setDateDue(rs.getDate("dateout"));
-            item.setDateOut(rs.getDate("datedue"));
+            if (rs.getDate("dateout") != null) {
+                LocalDate dateout = new Date(rs.getDate("dateout").getTime()).toLocalDate();
+                item.setDateOut(dateout);
+            }
+            if (rs.getDate("dateout") != null) {
+                LocalDate datedue = new Date(rs.getDate("datedue").getTime()).toLocalDate();
+                item.setDateDue(datedue);
+            }
             return item;
         }
         return null;
@@ -80,10 +99,10 @@ public class ItemDAO implements IDAO{
     public void AddData(Connection cn, IData data) throws SQLException {
         String query = "INSERT INTO item (id, productidentifier, username) VALUES (?, ?, ?)";
         PreparedStatement st = cn.prepareStatement(query);
-        Item item = (Item)data;
+        Item item = (Item) data;
         st.setInt(1, item.getId());
         st.setString(2, item.getProduct().getProductIdentifier());
-        if(item.getOwner() != null){
+        if (item.getOwner() != null) {
             st.setString(3, item.getOwner().getUsername());
         } else {
             st.setString(3, null);
@@ -103,11 +122,32 @@ public class ItemDAO implements IDAO{
     public void updateData(Connection cn, IData data) throws SQLException {
         String query = "UPDATE item SET username = ?, dateout = ?, datedue = ? WHERE id = ?";
         PreparedStatement st = cn.prepareStatement(query);
-        Item item = (Item)data;
-        st.setString(1, item.getOwner().getUsername());
-        st.setDate(2, item.getDateOut());
-        st.setDate(3, item.getDateDue());
+        Item item = (Item) data;
+        if (item.getOwner() == null) {
+            st.setString(1, null);
+        } else {
+            st.setString(1, item.getOwner().getUsername());
+        }
+
+        Date dateout = Date.valueOf(item.getDateOut());
+        st.setDate(2, dateout);
+        Date datedue = Date.valueOf(item.getDateDue());
+        st.setDate(3, datedue);
         st.setInt(4, item.getId());
-        st.execute();        
+        st.execute();
+    }
+
+    public static void main(String[] args) {
+        try (Connection cn = DBConnection.getCon()) {
+            System.out.println(LocalDate.now().getDayOfMonth());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -18,6 +18,7 @@ public abstract class User implements IUser {
     private String email;
     private Permission permission;
     
+    
     List<Item> ownedItems; //all products currently owned by the user
     ShoppingCart cart; //all products user is prepairing to buy
 

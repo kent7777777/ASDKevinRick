@@ -3,15 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO;
+package Strategy;
 
-import Framework.DAO.ProductDAO;
-
+import Framework.Item;
+import Framework.User;
 
 /**
  *
  * @author yeerick
  */
-public class ProductDAOExtension extends ProductDAO{
-   
+public interface TransactionStrategy{
+    
+    public boolean rentBook(User user, Item item);
+    public double returnBook(User user, Item item);
 }

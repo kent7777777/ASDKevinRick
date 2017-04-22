@@ -5,7 +5,9 @@
  */
 package Framework;
 
-import java.sql.Date;
+import java.time.LocalDate;
+
+
 
 /**
  *
@@ -15,8 +17,8 @@ public class Item implements IData{
     private int id;
     private Product product;
     private User owner;
-    private Date dateOut;
-    private Date dateDue;
+    private LocalDate dateOut;
+    private LocalDate dateDue;
 
     public Item(int id, Product product, User owner) {
         this.id = id;
@@ -41,19 +43,19 @@ public class Item implements IData{
         this.owner = owner;
     }
 
-    public Date getDateOut() {
+    public LocalDate getDateOut() {
         return dateOut;
     }
 
-    public void setDateOut(Date dateOut) {
+    public void setDateOut(LocalDate dateOut) {
         this.dateOut = dateOut;
     }
 
-    public Date getDateDue() {
+    public LocalDate getDateDue() {
         return dateDue;
     }
 
-    public void setDateDue(Date dateDue) {
+    public void setDateDue(LocalDate dateDue) {
         this.dateDue = dateDue;
     }
     
