@@ -6,10 +6,12 @@
 package GUI;
 
 import Framework.Item;
+import Framework.Physical;
 import Framework.Product;
 import GUI.ControllerPackage.BookSearchController;
 import LibraryProducts.Book;
 import LibraryProducts.EBook;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.swing.table.DefaultTableModel;
@@ -23,7 +25,7 @@ import javax.swing.text.TableView;
  */
 public class BookSearch extends GUIParent {
     private BookSearchController controller;
-    private Book[] books;
+    private List<Product> products;
     /**
      * Creates new form BookSearch
      */
@@ -173,22 +175,35 @@ public class BookSearch extends GUIParent {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         DefaultTableModel model = (DefaultTableModel) bookTable.getModel();
 
-        Object[] productCopies;
+        Item[] productCopies;
         
-        int[] copies;
+        productCopies = controller.getBooks();
         
-        if(ebookBox.isSelected()){
-            productCopies = controller.getEBooks(searchField.getText());
-        }else{
-            productCopies = controller.getBooks(searchField.getText());
+        products = new ArrayList<>();
+        List<Integer> numBooks = new ArrayList<>();
+        boolean exists = false;
+        
+        for (Item i : productCopies) {
+            if(i.getProduct().getProductName().startsWith(searchField.getText())){
+                for(int j = 0; j < products.size(); j++){
+                    if(i.getProduct().equals(products.get(j))){
+                        numBooks.set(j, numBooks.get(j)+1);
+                        exists = true;
+                    }
+                }
+                if(!exists){
+                    products.add(i.getProduct());
+                    numBooks.add(products.indexOf(i.getProduct()), 1);
+                }
+            }
         }
         
-        books = (Book[]) productCopies[0];
-        copies = (int[]) productCopies[1];
         
-        for(int i = 0; i < books.length; i++){
+        
+        
+        for(int i = 0; i < products.size(); i++){
             model.addRow(new Object[]{
-                books[i].getProductName(), books[i].getProductIdentifier(), copies[i]
+                products.get(i).getProductName(), products.get(i).getProductIdentifier(), numBooks.get(i)
             });
         }
         
@@ -196,14 +211,12 @@ public class BookSearch extends GUIParent {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Product book = books[bookTable.getSelectedRow()];
+        Product book = products.get(bookTable.getSelectedRow());
         if(!controller.putBookInCart(book))
             error.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

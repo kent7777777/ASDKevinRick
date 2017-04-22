@@ -5,14 +5,22 @@
  */
 package GUI.ControllerPackage;
 
+import DAO.DBConnection;
+import DAO.ItemDAOExtension;
+import Framework.IData;
 import Framework.Item;
+import Framework.Physical;
 import Framework.Product;
 import LibraryProducts.Book;
 import LibraryProducts.EBook;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,8 +29,25 @@ import java.util.Map;
 public class BookSearchController {
     
     //returns an object array with the first field being the product and the second being the number in stock
-    public Object[] getBooks(String bookName){
-        return new Object[]{new Book[]{new Book("1", "Book1", 1, 1), new Book("2", "Book2", 1, 1)}, new int[]{3, 8}};
+    public Item[] getBooks(){
+        ItemDAOExtension id = new ItemDAOExtension();
+        List<IData> data = null;
+        
+        try(Connection cn = DBConnection.getCon()){
+            data = id.findALL(cn);
+        } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            Logger.getLogger(BookSearchController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Item[] items = new Item[data.size()];
+        
+        for(int i = 0; i < data.size(); i++){
+            items[i] = (Item) data.get(i);
+        }
+        
+        
+        
+        return items;
     }
     
     public Object[] getEBooks(String ebookName){
