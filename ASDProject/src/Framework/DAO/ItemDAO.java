@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -128,26 +130,39 @@ public class ItemDAO implements IDAO {
         } else {
             st.setString(1, item.getOwner().getUsername());
         }
-
-        Date dateout = Date.valueOf(item.getDateOut());
-        st.setDate(2, dateout);
-        Date datedue = Date.valueOf(item.getDateDue());
-        st.setDate(3, datedue);
+        if (item.getDateOut() == null) {
+            st.setDate(2, null);
+        } else {
+            Date dateout = Date.valueOf(item.getDateOut());
+            st.setDate(2, dateout);
+        }
+        if (item.getDateDue() == null) {
+            st.setDate(3, null);
+        } else {
+            Date datedue = Date.valueOf(item.getDateDue());
+            st.setDate(3, datedue);
+        }
         st.setInt(4, item.getId());
         st.execute();
     }
 
     public static void main(String[] args) {
-        try (Connection cn = DBConnection.getCon()) {
-            System.out.println(LocalDate.now().getDayOfMonth());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        LocalDate sd = LocalDate.now();
+        System.out.println(sd.isBefore(LocalDate.now().plusDays(-1)));
+        LocalDate sa = LocalDate.now().plusDays(30);
+        long intervalDays = ChronoUnit.DAYS.between(sd, sa);
+        Period intervalPeriod = Period.between(sd, sa);
+        System.out.println(intervalDays);
+//        try (Connection cn = DBConnection.getCon()) {
+//            
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 }

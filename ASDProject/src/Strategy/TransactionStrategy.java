@@ -14,6 +14,6 @@ import Framework.User;
  */
 public interface TransactionStrategy{
     
-    public boolean rentBook(User user, Item item);
-    public double returnBook(User user, Item item);
+    public boolean rentItem(User user, Item item);
+    public double returnItem(User user, Item item);
 }

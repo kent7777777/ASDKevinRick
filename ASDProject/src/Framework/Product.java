@@ -18,6 +18,7 @@ public abstract class Product implements IProduct {
     private double costToStock;
     private double price;
     
+    
 
     public Product(String productIdentifier, String productName, double costToStock, double price) {
         this.productIdentifier = productIdentifier;

@@ -45,13 +45,7 @@ public class AuthentificationAgent extends AbstractAgent {
         if ((cost & ~0x1F) != 0) {
             throw new IllegalArgumentException("cost: " + cost);
         }
-        System.out.println(1<<cost);
         return 1 << cost;
     }
     
-    public static void main(String[] args) {
-        PasswordAuthentificationChainBuilder pa = new PasswordAuthentificationChainBuilder();
-        String password = "wwwwwwwwww";
-        System.out.println(pa.getHandler().handleRequest(password, pa.getHandler().handleRequest("wwww", null)));
-    }
 }
