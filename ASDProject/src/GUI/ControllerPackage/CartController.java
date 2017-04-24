@@ -5,6 +5,7 @@
  */
 package GUI.ControllerPackage;
 
+import DAO.DAOFacade;
 import DAO.DBConnection;
 import DAO.UserDAOExtension;
 import Framework.IData;
@@ -28,12 +29,13 @@ import java.util.logging.Logger;
 public class CartController {
     
     public boolean removeItem(Item item){
-        UserDAOExtension id = new UserDAOExtension();
+        DAO.DAOFacade DF = new DAOFacade();
+        
         
         try(Connection cn = DBConnection.getCon()){
-            id.deleteCart(cn, GUIController.getController().getUser().getUsername(), item.getId());
+            DF.deleteCart(cn, GUIController.getController().getUser().getUsername(), item.getId());
             GUIController.getController().setUser(
-                    (User) id.findUniqueWithCartAndOwned(
+                    (User) DF.UserfindUniqueWithCartAndOwned(
                             cn, GUIController.getController().getUser().getUsername()));
             GUIController.getController().getCart().updateCart(
                     GUIController.getController().getUser().getCart());
@@ -55,13 +57,14 @@ public class CartController {
             itemIds.add(i.getId());
         }
         
+        DAO.DAOFacade DF = new DAOFacade();
         UserDAOExtension id = new UserDAOExtension();
         
         try(Connection cn = DBConnection.getCon()){
             for(int i : itemIds){
-                id.deleteCart(cn, user.getUsername(), i);
+                DF.deleteCart(cn, user.getUsername(), i);
             }
-            user = (User) id.findUniqueWithCartAndOwned(cn, user.getUsername());
+            user = (User) DF.UserfindUniqueWithCartAndOwned(cn, user.getUsername());
             GUIController.getController().setUser(user);
         } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(CartController.class.getName()).log(Level.SEVERE, null, ex);

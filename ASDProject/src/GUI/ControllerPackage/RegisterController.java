@@ -5,6 +5,7 @@
  */
 package GUI.ControllerPackage;
 
+import DAO.DAOFacade;
 import DAO.DBConnection;
 import DAO.UserDAOExtension;
 import Framework.Factories.UserFactory;
@@ -35,10 +36,11 @@ public class RegisterController {
         }
         
         User user = factory.createUser("Member", username, password, email);
-        UserDAOExtension id = new UserDAOExtension();
+        DAO.DAOFacade DF = new DAOFacade();
+        
         
         try(Connection cn = DBConnection.getCon()){
-            id.AddData(cn, user);
+            DF.UserAddData(cn, user);
         } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
         }

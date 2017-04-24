@@ -158,6 +158,7 @@ public class Cart extends GUIParent {
     public void updateCart(ShoppingCart c){
         cart = c;
         DefaultTableModel model = (DefaultTableModel) cartTable.getModel();
+        model.setNumRows(0);
         for(Item p : cart.getCart()){
             model.addRow(new Object[]{p.getProduct().getProductName()});
         }

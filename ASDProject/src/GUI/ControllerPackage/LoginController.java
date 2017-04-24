@@ -5,6 +5,7 @@
  */
 package GUI.ControllerPackage;
 
+import DAO.DAOFacade;
 import DAO.DBConnection;
 import DAO.UserDAOExtension;
 import Framework.PasswordAuthentication.PasswordAuthentificationChainBuilder;
@@ -24,16 +25,17 @@ public class LoginController {
 
     public boolean login(String username, String password) {
         User user = null;
-        UserDAOExtension ud = new UserDAOExtension();
+        DAO.DAOFacade DF = new DAOFacade();
+        
         PasswordAuthentificationChainBuilder pa = new PasswordAuthentificationChainBuilder();
         try (Connection cn = DBConnection.getCon()) {
-            String token = ud.getToken(cn, username);
+            String token = DF.UserGetToken(cn, username);
             if (token == null) {
                 return false;
             } else {
                 String result = pa.getHandler().handleRequest(password, token);
                 if (result.equals("right")) {
-                    user = (User) ud.findUniqueWithCartAndOwned(cn, username);
+                    user = (User) DF.UserfindUniqueWithCartAndOwned(cn, username);
                     GUIController.getController().setUser(user);
                 } else {
                     return false;

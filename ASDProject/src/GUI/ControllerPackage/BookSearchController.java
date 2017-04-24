@@ -5,6 +5,7 @@
  */
 package GUI.ControllerPackage;
 
+import DAO.DAOFacade;
 import DAO.DBConnection;
 import DAO.ItemDAOExtension;
 import DAO.UserDAOExtension;
@@ -33,11 +34,12 @@ public class BookSearchController {
     
     //returns an object array with the first field being the product and the second being the number in stock
     public Item[] getBooks(){
-        ItemDAOExtension id = new ItemDAOExtension();
+        DAO.DAOFacade DF = new DAOFacade();
+        
         List<IData> data = null;
         
         try(Connection cn = DBConnection.getCon()){
-            data = id.findALL(cn);
+            data = DF.ItemfindALL(cn);
         } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(BookSearchController.class.getName()).log(Level.SEVERE, null, ex);
         }

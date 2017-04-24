@@ -175,7 +175,7 @@ public class BookSearch extends GUIParent {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         DefaultTableModel model = (DefaultTableModel) bookTable.getModel();
-        
+        model.setNumRows(0);
         productCopies = controller.getBooks();
         
         products = new ArrayList<>();

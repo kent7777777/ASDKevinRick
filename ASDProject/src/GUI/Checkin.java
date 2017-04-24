@@ -150,7 +150,18 @@ public class Checkin extends GUIParent {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        updateTable();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         DefaultTableModel model = (DefaultTableModel) itemTable.getModel();
+        controller.CheckIn(items.get(itemTable.getSelectedRow()), username);
+        updateTable();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void updateTable(){
+        DefaultTableModel model = (DefaultTableModel) itemTable.getModel();
+        model.setNumRows(0);
         User user = controller.getUser(usernameField.getText());
         items = user.getOwnedItems();
         
@@ -159,14 +170,7 @@ public class Checkin extends GUIParent {
         }
         
         username = usernameField.getText();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
-        controller.CheckIn(items.get(itemTable.getSelectedRow()), username);
-        
-    }//GEN-LAST:event_jButton3ActionPerformed
-
+    }
     
 
 

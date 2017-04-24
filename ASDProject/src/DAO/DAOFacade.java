@@ -103,7 +103,7 @@ public class DAOFacade {
         itemDAOExtension.updateData(cn, data);
     }
 
-    public List<Item> findByProductIdentifier(Connection cn, String productidentifier) throws SQLException {
+    public List<Item> ItemfindByProductIdentifier(Connection cn, String productidentifier) throws SQLException {
         return itemDAOExtension.findByProductIdentifier(cn, productidentifier);
     }
 

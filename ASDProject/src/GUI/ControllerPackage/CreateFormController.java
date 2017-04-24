@@ -5,10 +5,13 @@
  */
 package GUI.ControllerPackage;
 
+import DAO.DAOFacade;
 import DAO.DBConnection;
 import DAO.ItemDAOTemp;
 import DAO.ProductDAOTEMP;
 import Framework.Factories.ProductFactory;
+import Framework.IData;
+import Framework.Item;
 import Framework.Product;
 import LibraryProducts.LibraryFatories.AudioBookFactory;
 import LibraryProducts.LibraryFatories.BookFactory;
@@ -49,16 +52,16 @@ public class CreateFormController {
             product = factory.createPhysicalProduct(identifier, title, cost, price);
         }
         
-        ItemDAOTemp iid = new ItemDAOTemp();
+        DAO.DAOFacade DF = new DAOFacade();
+        
         ProductDAOTEMP pid = new ProductDAOTEMP();
         
         try(Connection cn = DBConnection.getCon()){
-            if(pid.findByProductIdentifier(cn, identifier) == null){
-                pid.addProduct(cn, product.getClass().getSimpleName(), 
-                        product.getProductIdentifier(), product.getProductName(),
-                        product.getCostToStock(), product.getPrice());
+            if(DF.ProductfindUnique(cn, identifier) == null){
+                DF.ProductAddData(cn, product);
             }
-            iid.addItem(cn, number, identifier, null);
+            IData data = new Item(number, product, null);
+            DF.ItemAddData(cn, data);
         } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(CreateFormController.class.getName()).log(Level.SEVERE, null, ex);
         }
