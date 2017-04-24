@@ -16,6 +16,7 @@ import Strategy.Transaction;
 import Strategy.TransactionStrategy;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,17 +48,19 @@ public class CartController {
         User user = GUIController.getController().getUser();
         List<Item> items = user.getCart().getCart();
         Transaction strategy = new Transaction(user);
+        List<Integer> itemIds = new ArrayList<>();
         
         for(Item i : items){
             strategy.getStrategy().rentItem(user, i);
+            itemIds.add(i.getId());
         }
-        
-        user.getCart().clearCart();
         
         UserDAOExtension id = new UserDAOExtension();
         
         try(Connection cn = DBConnection.getCon()){
-            id.updateData(cn, user);
+            for(int i : itemIds){
+                id.deleteCart(cn, user.getUsername(), i);
+            }
             user = (User) id.findUniqueWithCartAndOwned(cn, user.getUsername());
             GUIController.getController().setUser(user);
         } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {

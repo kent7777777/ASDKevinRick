@@ -61,7 +61,7 @@ public class UserDAOExtension extends UserDAO {
             }
             List<Item> items = new ArrayList<>();
             while(rs3.next()){
-                Item item = (Item)id.findUnique(cn, rs3.getString("productidentifier"));
+                Item item = (Item)id.findUnique(cn, Integer.toString(rs3.getInt("id")));
                 items.add(item);
             }
             

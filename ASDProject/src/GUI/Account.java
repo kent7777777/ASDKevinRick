@@ -134,11 +134,13 @@ public class Account extends GUIParent {
     public void setInfo(){
         usernameLable.setText(GUIController.getController().getUser().getUsername());
         accountLable.setText(GUIController.getController().getUser().getPermission().toString());
-        Item[] userItems = (Item[]) GUIController.getController().getUser().getItems().toArray();
-        String[] itemNames = new String[userItems.length];
+        List<Item> userItems = GUIController.getController().getUser().getItems();
+        String[] itemNames = new String[userItems.size()];
         
-        for(int i = 0; i < userItems.length; i++){
-            itemNames[i] = userItems[i].getProduct().getProductName();
+        for(int i = 0; i < userItems.size(); i++){
+            
+            itemNames[i] = userItems.get(i).getProduct().getProductName();
+            System.out.println(itemNames[i]);
         }
         userItemList.setListData(itemNames);
     }

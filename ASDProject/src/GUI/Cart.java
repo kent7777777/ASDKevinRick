@@ -23,6 +23,7 @@ public class Cart extends GUIParent {
      */
     
     public Cart() {
+        controller = new CartController();
         initComponents();
     }
 
@@ -147,6 +148,9 @@ public class Cart extends GUIParent {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         controller.checkOut();
+        DefaultTableModel model = (DefaultTableModel) cartTable.getModel();
+        model.setRowCount(0);
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     

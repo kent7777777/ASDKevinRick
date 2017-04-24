@@ -35,12 +35,18 @@ public class CheckinController {
         return user;
     }
     
-    public void CheckIn(Item item){
-        User user = item.getOwner();
+    public void CheckIn(Item item, String username){
+        User user = null;
+        UserDAOExtension id = new UserDAOExtension();
+        try(Connection cn = DBConnection.getCon()){
+            user = (User) id.findUniqueWithCartAndOwned(cn, username);
+        } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            Logger.getLogger(CheckinController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println(item.getProduct().getProductName());
+        System.out.println(item.getId());
         Transaction strategy = new Transaction(user);
         strategy.getStrategy().returnItem(user, item);
-        
-        UserDAOExtension id = new UserDAOExtension();
         
         try(Connection cn = DBConnection.getCon()){
             GUIController.getController().setUser((User) id.findUniqueWithCartAndOwned(cn, user.getUsername()));
