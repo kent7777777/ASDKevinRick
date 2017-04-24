@@ -115,4 +115,8 @@ public class GUIController {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public void setPermission() {
+        homepage.setPermission(user.getPermission().toString());
+    }
 }

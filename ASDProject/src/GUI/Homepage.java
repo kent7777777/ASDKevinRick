@@ -182,6 +182,16 @@ public class Homepage extends GUIParent {
     public void setUserLable(String username){
         usernameLable.setText(username);
     }
+    
+    public void setPermission(String permission){
+        if(permission.equals("MEDIUM")){
+            jButton5.setVisible(false);
+        }else if(permission.equals("LOW")){
+            jButton5.setVisible(false);
+            jButton7.setVisible(false);
+            jButton8.setVisible(false);
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
