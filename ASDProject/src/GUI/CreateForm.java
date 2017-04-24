@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import LibraryProducts.LibraryFatories.CreateFormController;
+import GUI.ControllerPackage.CreateFormController;
 
 /**
  *
@@ -39,6 +39,7 @@ public class CreateForm extends GUIParent {
         jButton2 = new javax.swing.JButton();
         digitalBox = new javax.swing.JCheckBox();
         productBox = new javax.swing.JComboBox<>();
+        numberField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,6 +72,8 @@ public class CreateForm extends GUIParent {
 
         productBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Book", "Audiobook", "DVD" }));
 
+        numberField.setText("Number");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -88,7 +91,8 @@ public class CreateForm extends GUIParent {
                             .addComponent(priceField)
                             .addComponent(titleField)
                             .addComponent(identifierField)
-                            .addComponent(costField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(costField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(numberField))
                         .addComponent(productBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(147, 147, 147))
         );
@@ -104,12 +108,14 @@ public class CreateForm extends GUIParent {
                 .addGap(18, 18, 18)
                 .addComponent(priceField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(numberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(digitalBox)
                 .addGap(18, 18, 18)
                 .addComponent(productBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addComponent(jButton2))
         );
 
@@ -140,9 +146,10 @@ public class CreateForm extends GUIParent {
         int price = Integer.parseInt(priceField.getText());
         boolean digital = digitalBox.isSelected();
         String type = (String) productBox.getSelectedItem();
-        if(!controller.createProduct(title, identifier, cost, price, digital, type)){
-            
-        }
+        int number = Integer.parseInt(identifier);
+        for(int i = 0; i < Integer.parseInt(numberField.getText()); i++)
+            controller.createProduct(
+                    title, identifier, cost, price, digital, type, Integer.parseInt(numberField.getText()) + number);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -154,6 +161,7 @@ public class CreateForm extends GUIParent {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField numberField;
     private javax.swing.JTextField priceField;
     private javax.swing.JComboBox<String> productBox;
     private javax.swing.JTextField titleField;

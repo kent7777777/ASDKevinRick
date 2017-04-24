@@ -73,7 +73,7 @@ public class UserDAOExtension extends UserDAO {
     }
     
     public void addCart(Connection cn, String username, int itemid) throws SQLException{
-        String query = "INSERT INTO shopping (username, itemid) VALUES (?, ?)";
+        String query = "INSERT INTO shoppingcart (username, itemid) VALUES (?, ?)";
         PreparedStatement st = cn.prepareStatement(query);
         st.setString(1, username);
         st.setInt(2, itemid);
@@ -81,7 +81,7 @@ public class UserDAOExtension extends UserDAO {
     }
     
     public void deleteCart(Connection cn, String username, int itemid) throws SQLException{
-        String query = "DELETE FROM item WHERE (username = ? AND itemid = ?)";
+        String query = "DELETE FROM shoppingcart WHERE (username = ? AND itemid = ?)";
         PreparedStatement st = cn.prepareStatement(query);
         st.setString(1, username);
         st.setInt(2, itemid);

@@ -7,10 +7,13 @@ package GUI.ControllerPackage;
 
 import DAO.DBConnection;
 import DAO.ItemDAOExtension;
+import DAO.UserDAOExtension;
 import Framework.IData;
 import Framework.Item;
 import Framework.Physical;
 import Framework.Product;
+import Framework.User;
+import GUI.GUIController;
 import LibraryProducts.Book;
 import LibraryProducts.EBook;
 import java.sql.Connection;
@@ -54,7 +57,18 @@ public class BookSearchController {
         return new Object[]{new EBook[10], new int[10]};
     }
     
-    public boolean putBookInCart(Product product){
+    public boolean putBookInCart(Item item){
+        UserDAOExtension id = new UserDAOExtension();
+        
+        try(Connection cn = DBConnection.getCon()){
+            id.addCart(cn, GUIController.getController().getUser().getUsername(), item.getId());
+            GUIController.getController().setUser(
+                    (User) id.findUniqueWithCartAndOwned(
+                            cn, GUIController.getController().getUser().getUsername()));
+        } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            Logger.getLogger(BookSearchController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         return true;
     }
 }

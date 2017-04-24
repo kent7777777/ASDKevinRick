@@ -64,6 +64,7 @@
                               <Component id="titleField" alignment="0" max="32767" attributes="0"/>
                               <Component id="identifierField" alignment="0" max="32767" attributes="0"/>
                               <Component id="costField" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                              <Component id="numberField" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <Component id="productBox" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -84,12 +85,14 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="priceField" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="numberField" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="digitalBox" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="productBox" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="142" max="32767" attributes="0"/>
+                  <EmptySpace pref="102" max="32767" attributes="0"/>
                   <Component id="jButton2" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -150,6 +153,11 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
+        </Component>
+        <Component class="javax.swing.JTextField" name="numberField">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Number"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

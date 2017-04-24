@@ -21,6 +21,8 @@ public class GUIController {
     private Users users;
     private Account account;
     private Register register;
+    private CreateForm createForm;
+    private Checkin checkin;
     
     private User user;
     
@@ -36,6 +38,8 @@ public class GUIController {
         users = new Users();
         account = new Account();
         register = new Register();
+        createForm = new CreateForm();
+        checkin = new Checkin();
     }
     
     public static GUIController getController(){
@@ -100,10 +104,15 @@ public class GUIController {
         return user;
     }
 
+    public CreateForm getCreateForm() {
+        return createForm;
+    }
+
+    public Checkin getCheckin() {
+        return checkin;
+    }
+    
     public void setUser(User user) {
         this.user = user;
     }
-    
-    
-    
 }

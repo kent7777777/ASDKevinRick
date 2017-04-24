@@ -26,6 +26,7 @@ import javax.swing.text.TableView;
 public class BookSearch extends GUIParent {
     private BookSearchController controller;
     private List<Product> products;
+    Item[] productCopies;
     /**
      * Creates new form BookSearch
      */
@@ -175,7 +176,7 @@ public class BookSearch extends GUIParent {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         DefaultTableModel model = (DefaultTableModel) bookTable.getModel();
 
-        Item[] productCopies;
+        
         
         productCopies = controller.getBooks();
         
@@ -186,7 +187,8 @@ public class BookSearch extends GUIParent {
         for (Item i : productCopies) {
             if(i.getProduct().getProductName().startsWith(searchField.getText())){
                 for(int j = 0; j < products.size(); j++){
-                    if(i.getProduct().equals(products.get(j))){
+                    if(i.getProduct().getProductIdentifier()
+                            .equals(products.get(j).getProductIdentifier())){
                         numBooks.set(j, numBooks.get(j)+1);
                         exists = true;
                     }
@@ -195,11 +197,9 @@ public class BookSearch extends GUIParent {
                     products.add(i.getProduct());
                     numBooks.add(products.indexOf(i.getProduct()), 1);
                 }
+                exists = false;
             }
         }
-        
-        
-        
         
         for(int i = 0; i < products.size(); i++){
             model.addRow(new Object[]{
@@ -211,8 +211,14 @@ public class BookSearch extends GUIParent {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Product book = products.get(bookTable.getSelectedRow());
-        if(!controller.putBookInCart(book))
+        Item item = null;
+        for(Item i : productCopies){
+            if(i.getProduct().getProductIdentifier().equals(
+                    products.get(bookTable.getSelectedRow()).getProductIdentifier())){
+                item = i;
+            }
+        }
+        if(!controller.putBookInCart(item))
             error.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 

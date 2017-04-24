@@ -31,8 +31,6 @@ public class LoginController {
             if (token == null) {
                 return false;
             } else {
-                System.out.println(password);
-                System.out.println(token);
                 String result = pa.getHandler().handleRequest(password, token);
                 if (result.equals("right")) {
                     user = (User) ud.findUniqueWithCartAndOwned(cn, username);

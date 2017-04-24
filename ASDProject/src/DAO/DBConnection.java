@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class DBConnection {
     public static Connection getCon() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         Class.forName("com.mysql.jdbc.Driver").newInstance();
-        Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/KevinRickASD", "root", "mumsql");
+        Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/KevinRickASD", "root", "12qwasss");
         return cn;
 
     }
