@@ -31,20 +31,20 @@ public class UserDAO implements IDAO {
         ResultSet rs = null;
         PreparedStatement st = cn.prepareStatement(query);
         rs = st.executeQuery();
-        
+
         List<IData> users = new ArrayList<>();
-        
+
         while (rs.next()) {
             UserFactory uf = new LibraryUserFactory();
             String permission = rs.getString("permission");
             User us;
-            if(permission.equals("HIGH")){
+            if (permission.equals("HIGH")) {
                 us = uf.createUser("Admin", rs.getString("username"), null, rs.getString("email"));
-            } else if (permission.equals("MEDIUM")){
+            } else if (permission.equals("MEDIUM")) {
                 us = uf.createUser("Staff", rs.getString("username"), null, rs.getString("email"));
             } else {
                 us = uf.createUser("Member", rs.getString("username"), null, rs.getString("email"));
-            }            
+            }
             users.add(us);
         }
         return users;
@@ -62,9 +62,9 @@ public class UserDAO implements IDAO {
             UserFactory uf = new LibraryUserFactory();
             String permission = rs.getString("permission");
             User us;
-            if(permission.equals("HIGH")){
+            if (permission.equals("HIGH")) {
                 us = uf.createUser("Admin", rs.getString("username"), null, rs.getString("email"));
-            } else if (permission.equals("MEDIUM")){
+            } else if (permission.equals("MEDIUM")) {
                 us = uf.createUser("Staff", rs.getString("username"), null, rs.getString("email"));
             } else {
                 us = uf.createUser("Member", rs.getString("username"), null, rs.getString("email"));
@@ -78,15 +78,15 @@ public class UserDAO implements IDAO {
     public void AddData(Connection cn, IData data) throws SQLException {
         String query = "INSERT INTO user (username, password, email, permission) VALUES (?, ?, ?, ?)";
         PreparedStatement st = cn.prepareStatement(query);
-        User us = (User)data;
+        User us = (User) data;
         st.setString(1, us.getUsername());
         PasswordAuthentificationChainBuilder pa = new PasswordAuthentificationChainBuilder();
         String token = pa.getHandler().handleRequest(us.getPassword(), null);
         st.setString(2, token);
         st.setString(3, us.getEmail());
-        if(us.getPermission() == Permission.HIGH){
+        if (us.getPermission() == Permission.HIGH) {
             st.setString(4, "HIGH");
-        } else if(us.getPermission() == Permission.MEDIUM){
+        } else if (us.getPermission() == Permission.MEDIUM) {
             st.setString(4, "MEDIUM");
         } else {
             st.setString(4, "LOW");
@@ -101,7 +101,7 @@ public class UserDAO implements IDAO {
         ps.setString(1, identifier);
         ps.execute();
     }
-    
+
     public String getToken(Connection cn, String username) throws SQLException {
         String sql = "SELECT password FROM user WHERE username = ?";
         try (PreparedStatement ps = cn.prepareStatement(sql)) {
@@ -118,14 +118,23 @@ public class UserDAO implements IDAO {
     @Override
     public void updateData(Connection cn, IData data) throws SQLException {
         String query = "UPDATE user SET password = ?, email = ?, permission = ? WHERE username = ?";
+        String query2 = "UPDATE user SET email = ?, permission = ? WHERE username = ?";
         PreparedStatement st = cn.prepareStatement(query);
-        User user = (User)data;
-        PasswordAuthentificationChainBuilder pa = new PasswordAuthentificationChainBuilder();
-        String token = pa.getHandler().handleRequest(user.getPassword(), null);
-        st.setString(1, token);
-        st.setString(2, user.getEmail());
-        st.setString(3, user.getPermission().toString());
-        st.setString(4, user.getUsername());
-        st.execute();  
+        PreparedStatement st2 = cn.prepareStatement(query2);
+        User user = (User) data;
+        if (user.getPassword() == null) {
+            st2.setString(1, user.getEmail());
+            st2.setString(2, user.getPermission().toString());
+            st2.setString(3, user.getUsername());
+            st2.execute();
+        } else {
+            PasswordAuthentificationChainBuilder pa = new PasswordAuthentificationChainBuilder();
+            String token = pa.getHandler().handleRequest(user.getPassword(), null);
+            st.setString(1, token);
+            st.setString(2, user.getEmail());
+            st.setString(3, user.getPermission().toString());
+            st.setString(4, user.getUsername());
+            st.execute();
+        }
     }
 }

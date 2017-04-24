@@ -7,7 +7,10 @@ package GUI.ControllerPackage;
 
 import DAO.DBConnection;
 import DAO.UserDAOExtension;
+import Framework.Item;
 import Framework.User;
+import GUI.GUIController;
+import Strategy.Transaction;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -30,5 +33,19 @@ public class CheckinController {
         }
         
         return user;
+    }
+    
+    public void CheckIn(Item item){
+        User user = item.getOwner();
+        Transaction strategy = new Transaction(user);
+        strategy.getStrategy().returnItem(user, item);
+        
+        UserDAOExtension id = new UserDAOExtension();
+        
+        try(Connection cn = DBConnection.getCon()){
+            GUIController.getController().setUser((User) id.findUniqueWithCartAndOwned(cn, user.getUsername()));
+        } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            Logger.getLogger(CheckinController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

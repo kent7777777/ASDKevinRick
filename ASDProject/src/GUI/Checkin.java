@@ -83,6 +83,11 @@ public class Checkin extends GUIParent {
         });
 
         jButton3.setText("CheckIn");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -152,6 +157,10 @@ public class Checkin extends GUIParent {
             model.addRow(new Object[]{i.getProduct().getProductName(), i.getProduct().getProductIdentifier(), i.getId(), 0}); // need fee
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        controller.CheckIn(items.get(itemTable.getSelectedRow()));
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     
 
