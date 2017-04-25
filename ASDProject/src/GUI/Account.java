@@ -53,11 +53,6 @@ public class Account extends GUIParent {
 
         accountLable.setText("account");
 
-        userItemList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(userItemList);
 
         jLabel3.setText("Checked out Items");
@@ -74,8 +69,8 @@ public class Account extends GUIParent {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
@@ -87,7 +82,7 @@ public class Account extends GUIParent {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(usernameLable)
                     .addComponent(accountLable))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(298, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,11 +131,10 @@ public class Account extends GUIParent {
         accountLable.setText(GUIController.getController().getUser().getPermission().toString());
         List<Item> userItems = GUIController.getController().getUser().getItems();
         String[] itemNames = new String[userItems.size()];
-        
+        String dueDate;
         for(int i = 0; i < userItems.size(); i++){
-            
-            itemNames[i] = userItems.get(i).getProduct().getProductName();
-            System.out.println(itemNames[i]);
+            dueDate = ", " + userItems.get(i).getDateDue();
+            itemNames[i] = userItems.get(i).getProduct().getProductName() + dueDate;
         }
         userItemList.setListData(itemNames);
     }
