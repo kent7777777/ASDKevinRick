@@ -49,7 +49,6 @@ public class LoginController {
         GUIController.getController().setUsername();
         GUIController.getController().setPermission();
         GUIController.getController().getAccount().setInfo();
-        return true; //TODO implement login
+        return true;
     }
-
 }

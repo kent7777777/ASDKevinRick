@@ -17,6 +17,7 @@ import Strategy.Transaction;
 import Strategy.TransactionStrategy;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -46,7 +47,7 @@ public class CartController {
         return true;
     }
     
-    public void checkOut(){
+    public String checkOut(){
         User user = GUIController.getController().getUser();
         List<Item> items = user.getCart().getCart();
         Transaction strategy = new Transaction(user);
@@ -58,7 +59,8 @@ public class CartController {
         }
         
         DAO.DAOFacade DF = new DAOFacade();
-        UserDAOExtension id = new UserDAOExtension();
+        LocalDate dueDate = null;
+        
         
         try(Connection cn = DBConnection.getCon()){
             for(int i : itemIds){
@@ -66,8 +68,12 @@ public class CartController {
             }
             user = (User) DF.UserfindUniqueWithCartAndOwned(cn, user.getUsername());
             GUIController.getController().setUser(user);
+            Item item = (Item) DF.ItemfindUnique(cn, String.valueOf(items.get(0).getId()));
+            dueDate = item.getDateDue();
+            
         } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(CartController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return dueDate.toString();
     }
 }

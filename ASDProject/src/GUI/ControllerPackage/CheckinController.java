@@ -37,7 +37,7 @@ public class CheckinController {
         return user;
     }
     
-    public void CheckIn(Item item, String username){
+    public double CheckIn(Item item, String username){
         User user = null;
         DAO.DAOFacade DF = new DAOFacade();
         
@@ -49,12 +49,14 @@ public class CheckinController {
         System.out.println(item.getProduct().getProductName());
         System.out.println(item.getId());
         Transaction strategy = new Transaction(user);
-        strategy.getStrategy().returnItem(user, item);
+        double fine = strategy.getStrategy().returnItem(user, item);
         
         try(Connection cn = DBConnection.getCon()){
             GUIController.getController().setUser((User) DF.UserfindUniqueWithCartAndOwned(cn, user.getUsername()));
         } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(CheckinController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        return fine;
     }
 }

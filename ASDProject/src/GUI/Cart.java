@@ -42,6 +42,8 @@ public class Cart extends GUIParent {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        dueDate = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,6 +89,10 @@ public class Cart extends GUIParent {
             }
         });
 
+        jLabel1.setText("Due Date:");
+
+        dueDate.setText("date");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -98,11 +104,14 @@ public class Cart extends GUIParent {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jButton1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jButton4))))
+                        .addComponent(jButton4))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jButton1)
+                            .addComponent(dueDate)))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,7 +120,11 @@ public class Cart extends GUIParent {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton4)
-                        .addGap(381, 381, 381)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(dueDate)
+                        .addGap(313, 313, 313)
                         .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jButton2)
@@ -147,18 +160,25 @@ public class Cart extends GUIParent {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        controller.checkOut();
+        dueDate.setText(controller.checkOut());
+        dueDate.setVisible(true);
         DefaultTableModel model = (DefaultTableModel) cartTable.getModel();
         model.setRowCount(0);
-
     }//GEN-LAST:event_jButton4ActionPerformed
-
+    
+    public void hideDate(){
+        dueDate.setVisible(false);
+    }
     
     
     public void updateCart(ShoppingCart c){
-        cart = c;
         DefaultTableModel model = (DefaultTableModel) cartTable.getModel();
         model.setNumRows(0);
+        if(c.getCart().size() < 1){
+            return;
+        }
+        cart = c;
+        
         for(Item p : cart.getCart()){
             model.addRow(new Object[]{p.getProduct().getProductName()});
         }
@@ -167,9 +187,11 @@ public class Cart extends GUIParent {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable cartTable;
+    private javax.swing.JLabel dueDate;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
