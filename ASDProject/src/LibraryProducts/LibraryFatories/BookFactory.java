@@ -11,12 +11,11 @@ import Framework.Physical;
 import LibraryProducts.Book;
 import LibraryProducts.EBook;
 
-
 /**
  *
  * @author coolk
  */
-public class BookFactory implements ProductFactory{
+public class BookFactory implements ProductFactory {
 
     @Override
     public Digital createDigitalProduct(String productIdentifier, String productName, double costToStock, double price) {
@@ -28,5 +27,5 @@ public class BookFactory implements ProductFactory{
         return new Book(productIdentifier, productName, costToStock, price);
 
     }
-    
+
 }

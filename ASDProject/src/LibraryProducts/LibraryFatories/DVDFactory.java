@@ -8,7 +8,6 @@ package LibraryProducts.LibraryFatories;
 import Framework.Digital;
 import Framework.Factories.ProductFactory;
 import Framework.Physical;
-import Framework.Product;
 import LibraryProducts.DVD;
 import LibraryProducts.EDVD;
 
@@ -16,8 +15,7 @@ import LibraryProducts.EDVD;
  *
  * @author coolk
  */
-public class DVDFactory implements ProductFactory{
-    
+public class DVDFactory implements ProductFactory {
 
     @Override
     public Digital createDigitalProduct(String productIdentifier, String productName, double costToStock, double price) {
@@ -29,5 +27,5 @@ public class DVDFactory implements ProductFactory{
         return new DVD(productIdentifier, productName, costToStock, price);
 
     }
-    
+
 }

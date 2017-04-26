@@ -7,11 +7,10 @@ package DAO;
 
 import Framework.DAO.ProductDAO;
 
-
 /**
  *
  * @author yeerick
  */
-public class ProductDAOExtension extends ProductDAO{
-   
+public class ProductDAOExtension extends ProductDAO {
+
 }

@@ -6,22 +6,21 @@
 package Framework.PasswordAuthentication;
 
 import java.security.SecureRandom;
-import java.util.List;
 
 /**
  *
  * @author yeerick
  */
 public abstract class AbstractAgent {
+
     protected AbstractAgent nextAgent;
-    
+
     static final String ID = "$31$";
     static final int cost = 16;
     static final int SIZE = 128;
     static final String ALGORITHM = "PBKDF2WithHmacSHA512";
     static final SecureRandom random = new SecureRandom();
-        
+
     public abstract String handleRequest(String password, String token);
-    
-    
+
 }

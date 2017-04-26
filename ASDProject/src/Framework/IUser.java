@@ -9,7 +9,9 @@ package Framework;
  *
  * @author coolk
  */
-public interface IUser extends IData{
+public interface IUser extends IData {
+
     public void Login();
+
     public void checkoutCart();
 }

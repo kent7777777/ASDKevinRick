@@ -9,6 +9,6 @@ package Framework;
  *
  * @author coolk
  */
-public interface IProduct extends IData{
-    
+public interface IProduct extends IData {
+
 }

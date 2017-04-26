@@ -47,5 +47,5 @@ public class AuthentificationAgent extends AbstractAgent {
         }
         return 1 << cost;
     }
-    
+
 }

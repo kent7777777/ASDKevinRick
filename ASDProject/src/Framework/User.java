@@ -13,35 +13,34 @@ import java.util.List;
  * @author coolk
  */
 public abstract class User implements IUser {
+
     private String username;
     private String password;
     private String email;
     private Permission permission;
-    
-    
+
     List<Item> ownedItems; //all products currently owned by the user
     ShoppingCart cart; //all products user is prepairing to buy
 
-    public User(String username, String password, String email){
+    public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
         ownedItems = new ArrayList<>();
         cart = new ShoppingCart();
     }
-    
+
     @Override
-    public void Login(){
+    public void Login() {
         //TODO implement login
     }
-    
+
     @Override
-    public void checkoutCart(){
+    public void checkoutCart() {
         ownedItems.addAll(cart.getCart());
         cart.clearCart();
     }
-    
-    
+
     public String getUsername() {
         return username;
     }
@@ -86,7 +85,7 @@ public abstract class User implements IUser {
         return ownedItems;
     }
 
-    public void setItems(List<Item> items){
+    public void setItems(List<Item> items) {
         this.ownedItems = items;
     }
 
@@ -97,6 +96,5 @@ public abstract class User implements IUser {
     public void setOwnedItems(List<Item> ownedItems) {
         this.ownedItems = ownedItems;
     }
-    
-    
+
 }

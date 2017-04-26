@@ -7,13 +7,12 @@ package Framework;
 
 import java.time.LocalDate;
 
-
-
 /**
  *
  * @author coolk
  */
-public class Item implements IData{
+public class Item implements IData {
+
     private int id;
     private Product product;
     private User owner;
@@ -34,7 +33,6 @@ public class Item implements IData{
         return product;
     }
 
-    
     public User getOwner() {
         return owner;
     }
@@ -58,6 +56,5 @@ public class Item implements IData{
     public void setDateDue(LocalDate dateDue) {
         this.dateDue = dateDue;
     }
-    
-    
+
 }

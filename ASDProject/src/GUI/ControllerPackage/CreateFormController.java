@@ -7,8 +7,6 @@ package GUI.ControllerPackage;
 
 import DAO.DAOFacade;
 import DAO.DBConnection;
-import DAO.ItemDAOTemp;
-import DAO.ProductDAOTEMP;
 import Framework.Factories.ProductFactory;
 import Framework.IData;
 import Framework.Item;
@@ -26,10 +24,8 @@ import java.util.logging.Logger;
  * @author coolk
  */
 public class CreateFormController {
-    
-    
-    
-    public boolean createProduct(String title, String identifier, int cost, int price, boolean digital, String type, int number){
+
+    public boolean createProduct(String title, String identifier, int cost, int price, boolean digital, String type, int number) {
         ProductFactory factory = null;
         Product product;
         switch (type) {
@@ -45,19 +41,17 @@ public class CreateFormController {
             default:
                 return false;
         }
-        
-        if(digital){
+
+        if (digital) {
             product = factory.createDigitalProduct(identifier, title, cost, price);
-        }else{
+        } else {
             product = factory.createPhysicalProduct(identifier, title, cost, price);
         }
-        
+
         DAO.DAOFacade DF = new DAOFacade();
-        
-        ProductDAOTEMP pid = new ProductDAOTEMP();
-        
-        try(Connection cn = DBConnection.getCon()){
-            if(DF.ProductfindUnique(cn, identifier) == null){
+
+        try (Connection cn = DBConnection.getCon()) {
+            if (DF.ProductfindUnique(cn, identifier) == null) {
                 DF.ProductAddData(cn, product);
             }
             IData data = new Item(number, product, null);
@@ -65,8 +59,7 @@ public class CreateFormController {
         } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(CreateFormController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
         return true;
     }
 }

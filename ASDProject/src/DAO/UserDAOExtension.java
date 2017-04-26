@@ -24,7 +24,7 @@ import java.util.List;
  * @author yeerick
  */
 public class UserDAOExtension extends UserDAO {
-    
+
     public IData findUniqueWithCartAndOwned(Connection cn, String identifier) throws SQLException {
         String query = "SELECT * FROM user WHERE username = ?";
         String query2 = "SELECT * FROM shoppingcart WHERE username = ?";
@@ -37,11 +37,11 @@ public class UserDAOExtension extends UserDAO {
         PreparedStatement st = cn.prepareStatement(query);
         st.setString(1, identifier);
         rs = st.executeQuery();
-        
+
         PreparedStatement st2 = cn.prepareStatement(query2);
         st2.setString(1, identifier);
         rs2 = st2.executeQuery();
-        
+
         PreparedStatement st3 = cn.prepareStatement(query3);
         st3.setString(1, identifier);
         rs3 = st3.executeQuery();
@@ -49,38 +49,38 @@ public class UserDAOExtension extends UserDAO {
             UserFactory uf = new LibraryUserFactory();
             String permission = rs.getString("permission");
             User us;
-            if(permission.equals("HIGH")){
+            if (permission.equals("HIGH")) {
                 us = uf.createUser("Admin", rs.getString("username"), null, rs.getString("email"));
-            } else if (permission.equals("MEDIUM")){
+            } else if (permission.equals("MEDIUM")) {
                 us = uf.createUser("Staff", rs.getString("username"), null, rs.getString("email"));
             } else {
                 us = uf.createUser("Member", rs.getString("username"), null, rs.getString("email"));
             }
-            while(rs2.next()){
-                us.getCart().addItem((Item)id.findUnique(cn, Integer.toString(rs2.getInt("itemid"))));
+            while (rs2.next()) {
+                us.getCart().addItem((Item) id.findUnique(cn, Integer.toString(rs2.getInt("itemid"))));
             }
             List<Item> items = new ArrayList<>();
-            while(rs3.next()){
-                Item item = (Item)id.findUnique(cn, Integer.toString(rs3.getInt("id")));
+            while (rs3.next()) {
+                Item item = (Item) id.findUnique(cn, Integer.toString(rs3.getInt("id")));
                 items.add(item);
             }
-            
+
             us.setOwnedItems(items);
-            
+
             return us;
         }
         return null;
     }
-    
-    public void addCart(Connection cn, String username, int itemid) throws SQLException{
+
+    public void addCart(Connection cn, String username, int itemid) throws SQLException {
         String query = "INSERT INTO shoppingcart (username, itemid) VALUES (?, ?)";
         PreparedStatement st = cn.prepareStatement(query);
         st.setString(1, username);
         st.setInt(2, itemid);
         st.execute();
     }
-    
-    public void deleteCart(Connection cn, String username, int itemid) throws SQLException{
+
+    public void deleteCart(Connection cn, String username, int itemid) throws SQLException {
         String query = "DELETE FROM shoppingcart WHERE (username = ? AND itemid = ?)";
         PreparedStatement st = cn.prepareStatement(query);
         st.setString(1, username);

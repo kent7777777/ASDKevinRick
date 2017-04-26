@@ -5,13 +5,9 @@
  */
 package Framework.DAO;
 
-import DAO.ItemDAOExtension;
-import DAO.UserDAOTemp;
 import Framework.Factories.ProductFactory;
 import Framework.IData;
-import Framework.Item;
 import Framework.Product;
-import Framework.User;
 import LibraryProducts.AudioBook;
 import LibraryProducts.Book;
 import LibraryProducts.EAudioBook;
@@ -31,7 +27,7 @@ import java.util.List;
  *
  * @author yeerick
  */
-public class ProductDAO implements IDAO{
+public class ProductDAO implements IDAO {
 
     @Override
     public List<IData> findALL(Connection cn) throws SQLException {
@@ -41,36 +37,36 @@ public class ProductDAO implements IDAO{
         ResultSet rs2 = null;
         PreparedStatement st = cn.prepareStatement(query);
         rs = st.executeQuery();
-        
+
         PreparedStatement st2 = cn.prepareStatement(query2);
-        
+
         List<IData> items = new ArrayList<>();
-        
-        while (rs.next()) {            
-           
+
+        while (rs.next()) {
+
             String category = rs.getString("category");
             ProductFactory pf;
             Product product;
-            if(category.equals("EBook")){
+            if (category.equals("EBook")) {
                 pf = new BookFactory();
                 product = pf.createDigitalProduct(rs.getString("productidentifier"), rs.getString("productname"), rs.getDouble("costtostock"), rs.getDouble("price"));
-            } else if (category.equals("EAudioBook")){
+            } else if (category.equals("EAudioBook")) {
                 pf = new AudioBookFactory();
                 product = pf.createDigitalProduct(rs.getString("productidentifier"), rs.getString("productname"), rs.getDouble("costtostock"), rs.getDouble("price"));
-            } else if (category.equals("EDVD")){
+            } else if (category.equals("EDVD")) {
                 pf = new DVDFactory();
                 product = pf.createDigitalProduct(rs.getString("productidentifier"), rs.getString("productname"), rs.getDouble("costtostock"), rs.getDouble("price"));
-            } else if (category.equals("Book")){
+            } else if (category.equals("Book")) {
                 pf = new DVDFactory();
                 product = pf.createPhysicalProduct(rs.getString("productidentifier"), rs.getString("productname"), rs.getDouble("costtostock"), rs.getDouble("price"));
-            } else if (category.equals("AudioBook")){
+            } else if (category.equals("AudioBook")) {
                 pf = new DVDFactory();
                 product = pf.createPhysicalProduct(rs.getString("productidentifier"), rs.getString("productname"), rs.getDouble("costtostock"), rs.getDouble("price"));
             } else {
                 pf = new DVDFactory();
                 product = pf.createPhysicalProduct(rs.getString("productidentifier"), rs.getString("productname"), rs.getDouble("costtostock"), rs.getDouble("price"));
-            }          
-            items.add(product);              
+            }
+            items.add(product);
         }
         return items;
     }
@@ -87,19 +83,19 @@ public class ProductDAO implements IDAO{
             String category = rs.getString("category");
             ProductFactory pf;
             Product product;
-            if(category.equals("EBook")){
+            if (category.equals("EBook")) {
                 pf = new BookFactory();
                 product = pf.createDigitalProduct(rs.getString("productidentifier"), rs.getString("productname"), rs.getDouble("costtostock"), rs.getDouble("price"));
-            } else if (category.equals("EAudioBook")){
+            } else if (category.equals("EAudioBook")) {
                 pf = new AudioBookFactory();
                 product = pf.createDigitalProduct(rs.getString("productidentifier"), rs.getString("productname"), rs.getDouble("costtostock"), rs.getDouble("price"));
-            } else if (category.equals("EDVD")){
+            } else if (category.equals("EDVD")) {
                 pf = new DVDFactory();
                 product = pf.createDigitalProduct(rs.getString("productidentifier"), rs.getString("productname"), rs.getDouble("costtostock"), rs.getDouble("price"));
-            } else if (category.equals("Book")){
+            } else if (category.equals("Book")) {
                 pf = new DVDFactory();
                 product = pf.createPhysicalProduct(rs.getString("productidentifier"), rs.getString("productname"), rs.getDouble("costtostock"), rs.getDouble("price"));
-            } else if (category.equals("AudioBook")){
+            } else if (category.equals("AudioBook")) {
                 pf = new DVDFactory();
                 product = pf.createPhysicalProduct(rs.getString("productidentifier"), rs.getString("productname"), rs.getDouble("costtostock"), rs.getDouble("price"));
             } else {
@@ -115,20 +111,20 @@ public class ProductDAO implements IDAO{
     public void AddData(Connection cn, IData data) throws SQLException {
         String query = "INSERT INTO product (productidentifier, productname, costtostock, price, category) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement st = cn.prepareStatement(query);
-        Product product = (Product)data;
+        Product product = (Product) data;
         st.setString(1, product.getProductIdentifier());
         st.setString(2, product.getProductName());
         st.setDouble(3, product.getCostToStock());
         st.setDouble(4, product.getPrice());
-        if(product.getClass() == EBook.class){
+        if (product.getClass() == EBook.class) {
             st.setString(5, "Ebook");
-        } else if(product.getClass() == EAudioBook.class){
+        } else if (product.getClass() == EAudioBook.class) {
             st.setString(5, "EAudioBook");
-        } else if(product.getClass() == EDVD.class){
+        } else if (product.getClass() == EDVD.class) {
             st.setString(5, "EDVD");
-        } else if(product.getClass() == Book.class){
+        } else if (product.getClass() == Book.class) {
             st.setString(5, "Book");
-        } else if(product.getClass() == AudioBook.class){
+        } else if (product.getClass() == AudioBook.class) {
             st.setString(5, "AudioBook");
         } else {
             st.setString(5, "DVD");
@@ -148,12 +144,12 @@ public class ProductDAO implements IDAO{
     public void updateData(Connection cn, IData data) throws SQLException {
         String query = "UPDATE product SET productname = ?, costtostock = ?, price = ? WHERE productidentifier = ?";
         PreparedStatement st = cn.prepareStatement(query);
-        Product product = (Product)data;
+        Product product = (Product) data;
         st.setString(1, product.getProductName());
         st.setDouble(2, product.getCostToStock());
         st.setDouble(3, product.getPrice());
         st.setString(4, product.getProductIdentifier());
-        st.execute();  
+        st.execute();
     }
-   
+
 }

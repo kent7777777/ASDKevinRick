@@ -10,5 +10,5 @@ package Framework;
  * @author yeerick
  */
 public interface IData {
-    
+
 }

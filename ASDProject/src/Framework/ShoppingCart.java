@@ -12,29 +12,30 @@ import java.util.List;
  *
  * @author coolk
  */
-public class ShoppingCart implements IShoppingCart{
+public class ShoppingCart implements IShoppingCart {
+
     private List<Item> items;
-    
-    public ShoppingCart(){
+
+    public ShoppingCart() {
         items = new ArrayList<>();
     }
-    
+
     @Override
-    public void addItem(Item item){
+    public void addItem(Item item) {
         items.add(item);
     }
-    
+
     @Override
-    public void deleteItem(Item item){
+    public void deleteItem(Item item) {
         items.remove(item);
     }
-    
-    public List<Item> getCart(){
+
+    public List<Item> getCart() {
         return items;
     }
-    
+
     @Override
-    public void clearCart(){
+    public void clearCart() {
         items.clear();
     }
 }

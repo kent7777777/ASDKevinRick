@@ -9,13 +9,11 @@ package Framework;
  *
  * @author coolk
  */
-public class Staff extends User{
+public class Staff extends User {
 
     public Staff(String username, String password, String email) {
         super(username, password, email);
         super.setPermission(Permission.MEDIUM);
     }
 
-    
-    
 }

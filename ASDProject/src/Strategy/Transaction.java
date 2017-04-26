@@ -5,7 +5,6 @@
  */
 package Strategy;
 
-import Framework.Admin;
 import Framework.User;
 
 /**
@@ -13,12 +12,13 @@ import Framework.User;
  * @author yeerick
  */
 public class Transaction {
+
     private TransactionStrategy strategy;
-    
-    public Transaction(User user){
-        if(user.getClass().getSimpleName().equals("Admin")){
+
+    public Transaction(User user) {
+        if (user.getClass().getSimpleName().equals("Admin")) {
             strategy = new AdminStrategy();
-        } else if (user.getClass().getSimpleName().equals("Staff")){
+        } else if (user.getClass().getSimpleName().equals("Staff")) {
             strategy = new StaffStrategy();
         } else {
             strategy = new MemberStrategy();
@@ -28,8 +28,5 @@ public class Transaction {
     public TransactionStrategy getStrategy() {
         return strategy;
     }
-    
-    
-}
-    
 
+}

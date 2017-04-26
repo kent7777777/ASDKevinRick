@@ -9,16 +9,15 @@ package Framework.PasswordAuthentication;
  *
  * @author yeerick
  */
-public class ValidationAgent extends AbstractAgent{
+public class ValidationAgent extends AbstractAgent {
 
-    
     @Override
     public String handleRequest(String password, String token) {
-        if(password.length() < 8 || password.length() > 32){
+        if (password.length() < 8 || password.length() > 32) {
             return "invalid";
         } else {
             return nextAgent.handleRequest(password, token);
         }
     }
-    
+
 }

@@ -6,7 +6,6 @@
 package DAO;
 
 import Framework.DAO.ItemDAO;
-import Framework.IData;
 import Framework.Item;
 import Framework.Product;
 import Framework.User;

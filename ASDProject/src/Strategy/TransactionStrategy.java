@@ -12,8 +12,9 @@ import Framework.User;
  *
  * @author yeerick
  */
-public interface TransactionStrategy{
-    
+public interface TransactionStrategy {
+
     public boolean rentItem(User user, Item item);
+
     public double returnItem(User user, Item item);
 }

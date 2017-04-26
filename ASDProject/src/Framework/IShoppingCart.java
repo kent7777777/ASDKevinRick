@@ -9,8 +9,11 @@ package Framework;
  *
  * @author coolk
  */
-public interface IShoppingCart extends IData{
+public interface IShoppingCart extends IData {
+
     public void addItem(Item item);
+
     public void deleteItem(Item item);
+
     public void clearCart();
 }

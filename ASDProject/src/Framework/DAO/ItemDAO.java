@@ -5,13 +5,10 @@
  */
 package Framework.DAO;
 
-import DAO.DBConnection;
 import Framework.IData;
 import Framework.Item;
 import Framework.Product;
 import Framework.User;
-import LibraryProducts.Book;
-import LibraryProducts.EBook;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,8 +19,6 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -41,13 +36,13 @@ public class ItemDAO implements IDAO {
         List<IData> items = new ArrayList<>();
 
         while (rs.next()) {
-            DAO.ProductDAOTEMP pd = new DAO.ProductDAOTEMP();
-            DAO.UserDAOTemp ud = new DAO.UserDAOTemp();
-            Product product = pd.findByProductIdentifier(cn, rs.getString("productidentifier"));
+            ProductDAO pd = new ProductDAO();
+            UserDAO ud = new UserDAO();
+            Product product = (Product) pd.findUnique(cn, rs.getString("productidentifier"));
             String username = rs.getString("username");
             User us = null;
             if (username != null) {
-                us = ud.findByUsername(cn, username);
+                us = (User) ud.findUnique(cn, username);
             }
 
             Item item = new Item(rs.getInt("id"), product, us);
@@ -73,14 +68,14 @@ public class ItemDAO implements IDAO {
         rs = st.executeQuery();
 
         while (rs.next()) {
-            DAO.ProductDAOTEMP pd = new DAO.ProductDAOTEMP();
-            DAO.UserDAOTemp ud = new DAO.UserDAOTemp();
+            ProductDAO pd = new ProductDAO();
+            UserDAO ud = new UserDAO();
 
-            Product product = pd.findByProductIdentifier(cn, rs.getString("productidentifier"));
+            Product product = (Product) pd.findUnique(cn, rs.getString("productidentifier"));
             String username = rs.getString("username");
             User us = null;
             if (username != null) {
-                us = ud.findByUsername(cn, username);
+                us = (User) ud.findUnique(cn, username);
             }
 
             Item item = new Item(rs.getInt("id"), product, us);
@@ -146,23 +141,4 @@ public class ItemDAO implements IDAO {
         st.execute();
     }
 
-    public static void main(String[] args) {
-        LocalDate sd = LocalDate.now();
-        System.out.println(sd.isBefore(LocalDate.now().plusDays(-1)));
-        LocalDate sa = LocalDate.now().plusDays(30);
-        long intervalDays = ChronoUnit.DAYS.between(sd, sa);
-        Period intervalPeriod = Period.between(sd, sa);
-        System.out.println(intervalDays);
-//        try (Connection cn = DBConnection.getCon()) {
-//            
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-    }
 }

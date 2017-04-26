@@ -15,9 +15,9 @@ import LibraryProducts.EAudioBook;
  *
  * @author coolk
  */
-public class AudioBookFactory implements ProductFactory{
-    
-        @Override
+public class AudioBookFactory implements ProductFactory {
+
+    @Override
     public Digital createDigitalProduct(String productIdentifier, String productName, double costToStock, double price) {
         return new EAudioBook(productIdentifier, productName, costToStock, price);
     }

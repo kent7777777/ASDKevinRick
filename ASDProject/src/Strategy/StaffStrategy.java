@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author yeerick
  */
-public class StaffStrategy implements TransactionStrategy{
+public class StaffStrategy implements TransactionStrategy {
 
     @Override
     public boolean rentItem(User user, Item item) {
@@ -30,7 +30,7 @@ public class StaffStrategy implements TransactionStrategy{
             if (temp.getOwner() != null) {
                 return false;
             } else {
-                temp.setOwner((User)DF.UserfindUnique(cn, user.getUsername()));
+                temp.setOwner((User) DF.UserfindUnique(cn, user.getUsername()));
                 LocalDate now = LocalDate.now();
                 temp.setDateOut(now);
                 LocalDate due = now.plusDays(14);
@@ -43,7 +43,6 @@ public class StaffStrategy implements TransactionStrategy{
         }
         return false;
     }
-    
 
     @Override
     public double returnItem(User user, Item item) {
@@ -70,5 +69,5 @@ public class StaffStrategy implements TransactionStrategy{
         }
         return -1;
     }
-    
+
 }

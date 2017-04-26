@@ -79,7 +79,7 @@ public class MemberStrategy implements TransactionStrategy {
         try (Connection cn = DBConnection.getCon()) {
             ItemDAO ids = new ItemDAO();
             item = (Item) ids.findUnique(cn, "1");
- 
+
             //System.out.println(t1.getStrategy().rentItem(us, item));
             System.out.println(t1.getStrategy().returnItem(us, item));
 

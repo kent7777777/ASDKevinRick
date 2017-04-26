@@ -13,17 +13,17 @@ import LibraryProducts.AudioBook;
  * @author coolk
  */
 public class AudiobookSearchController {
-    
+
     //returns an object array with the first field being the product and the second being the number in stock
-    public Object[] getAudiobooks(String audiobookName){
+    public Object[] getAudiobooks(String audiobookName) {
         return new Object[]{new AudioBook[10], new int[10]};
     }
-    
-    public Object[] getEAudiobooks(String audiobookName){
+
+    public Object[] getEAudiobooks(String audiobookName) {
         return new Object[]{new AudioBook[10], new int[10]};
     }
-    
-    public boolean putAudiobookInCart(Product product){
+
+    public boolean putAudiobookInCart(Product product) {
         return true;
     }
 }

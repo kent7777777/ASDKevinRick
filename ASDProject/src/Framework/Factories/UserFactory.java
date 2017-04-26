@@ -12,5 +12,6 @@ import Framework.User;
  * @author coolk
  */
 public interface UserFactory {
+
     public User createUser(String type, String username, String password, String email);
 }

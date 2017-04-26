@@ -7,7 +7,6 @@ package GUI.ControllerPackage;
 
 import DAO.DAOFacade;
 import DAO.DBConnection;
-import DAO.UserDAOExtension;
 import Framework.PasswordAuthentication.PasswordAuthentificationChainBuilder;
 import Framework.User;
 import GUI.GUIController;
@@ -26,7 +25,7 @@ public class LoginController {
     public boolean login(String username, String password) {
         User user = null;
         DAO.DAOFacade DF = new DAOFacade();
-        
+
         PasswordAuthentificationChainBuilder pa = new PasswordAuthentificationChainBuilder();
         try (Connection cn = DBConnection.getCon()) {
             String token = DF.UserGetToken(cn, username);
@@ -45,7 +44,7 @@ public class LoginController {
         } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(ASDProject.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         GUIController.getController().setUsername();
         GUIController.getController().setPermission();
         GUIController.getController().getAccount().setInfo();

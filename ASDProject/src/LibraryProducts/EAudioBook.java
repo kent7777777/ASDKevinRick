@@ -11,10 +11,10 @@ import Framework.Digital;
  *
  * @author coolk
  */
-public class EAudioBook extends Digital{
-    
+public class EAudioBook extends Digital {
+
     public EAudioBook(String productIdentifier, String productName, double costToStock, double price) {
         super(productIdentifier, productName, costToStock, price);
     }
-    
+
 }

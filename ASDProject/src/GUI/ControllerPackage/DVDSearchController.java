@@ -13,20 +13,18 @@ import LibraryProducts.EDVD;
  *
  * @author coolk
  */
-
-
 public class DVDSearchController {
-    
+
     //returns an object array with the first field being the product and the second being the number in stock
-    public Object[] getDVD(String dvdName){
+    public Object[] getDVD(String dvdName) {
         return new Object[]{new DVD[10], new int[10]};
     }
-    
-    public Object[] getEDVD(String edvdName){
+
+    public Object[] getEDVD(String edvdName) {
         return new Object[]{new EDVD[10], new int[10]};
     }
-    
-    public boolean putDVDInCart(Product product){
+
+    public boolean putDVDInCart(Product product) {
         return true;
     }
 }

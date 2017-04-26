@@ -9,17 +9,17 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
 /**
  *
  * @author yeerick
  */
 public class DBConnection {
+
     public static Connection getCon() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         Class.forName("com.mysql.jdbc.Driver").newInstance();
         Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/KevinRickASD", "root", "12qwasss");
         return cn;
 
     }
-    
+
 }

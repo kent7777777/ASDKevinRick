@@ -9,7 +9,6 @@ import Framework.Factories.UserFactory;
 import Framework.IData;
 import Framework.PasswordAuthentication.PasswordAuthentificationChainBuilder;
 import Framework.Permission;
-import Framework.Product;
 import Framework.User;
 import LibraryProducts.LibraryFatories.LibraryUserFactory;
 import java.sql.Connection;

@@ -13,6 +13,8 @@ import Framework.Physical;
  * @author coolk
  */
 public interface ProductFactory {
+
     public Digital createDigitalProduct(String productIdentifier, String productName, double costToStock, double price);
+
     public Physical createPhysicalProduct(String productIdentifier, String productName, double costToStock, double price);
 }

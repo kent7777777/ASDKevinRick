@@ -11,12 +11,10 @@ import Framework.Digital;
  *
  * @author coolk
  */
-public class EDVD extends Digital{
-    
+public class EDVD extends Digital {
+
     public EDVD(String productIdentifier, String productName, double costToStock, double price) {
         super(productIdentifier, productName, costToStock, price);
     }
-    
 
-    
 }

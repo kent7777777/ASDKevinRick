@@ -15,12 +15,12 @@ import Framework.User;
  *
  * @author coolk
  */
-public class LibraryUserFactory implements UserFactory{
+public class LibraryUserFactory implements UserFactory {
 
     @Override
     public User createUser(String type, String username, String password, String email) {
         User user = null;
-        
+
         switch (type) {
             case "Admin":
                 user = new Admin(username, password, email);
@@ -34,8 +34,8 @@ public class LibraryUserFactory implements UserFactory{
             default:
                 break;
         }
-        
+
         return user;
     }
-    
+
 }

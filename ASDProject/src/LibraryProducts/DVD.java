@@ -11,10 +11,10 @@ import Framework.Physical;
  *
  * @author coolk
  */
-public class DVD extends Physical{
-    
+public class DVD extends Physical {
+
     public DVD(String productIdentifier, String productName, double costToStock, double price) {
         super(productIdentifier, productName, costToStock, price);
     }
-    
+
 }

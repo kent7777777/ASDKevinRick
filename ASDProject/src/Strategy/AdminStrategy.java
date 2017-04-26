@@ -11,10 +11,8 @@ import Framework.Item;
 import Framework.User;
 import java.sql.Connection;
 import java.sql.SQLException;
-
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -72,5 +70,3 @@ public class AdminStrategy implements TransactionStrategy {
         return -1;
     }
 }
-
-
