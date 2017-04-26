@@ -27,7 +27,7 @@ public class CheckinController {
 
         User user = null;
 
-        try (Connection cn = DBConnection.getCon()) {
+        try (Connection cn = DBConnection.getInstance().getCon()) {
             user = (User) DF.UserfindUniqueWithCartAndOwned(cn, username);
         } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(CheckinController.class.getName()).log(Level.SEVERE, null, ex);
@@ -40,7 +40,7 @@ public class CheckinController {
         User user = null;
         DAO.DAOFacade DF = new DAOFacade();
 
-        try (Connection cn = DBConnection.getCon()) {
+        try (Connection cn = DBConnection.getInstance().getCon()) {
             user = (User) DF.UserfindUniqueWithCartAndOwned(cn, username);
         } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(CheckinController.class.getName()).log(Level.SEVERE, null, ex);
@@ -50,7 +50,7 @@ public class CheckinController {
         Transaction strategy = new Transaction(user);
         double fine = strategy.getStrategy().returnItem(user, item);
 
-        try (Connection cn = DBConnection.getCon()) {
+        try (Connection cn = DBConnection.getInstance().getCon()) {
             GUIController.getController().setUser((User) DF.UserfindUniqueWithCartAndOwned(cn, user.getUsername()));
         } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(CheckinController.class.getName()).log(Level.SEVERE, null, ex);

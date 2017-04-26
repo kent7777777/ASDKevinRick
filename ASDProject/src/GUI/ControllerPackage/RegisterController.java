@@ -38,7 +38,7 @@ public class RegisterController {
         User user = factory.createUser("Member", username, password, email);
         DAO.DAOFacade DF = new DAOFacade();
 
-        try (Connection cn = DBConnection.getCon()) {
+        try (Connection cn = DBConnection.getInstance().getCon()) {
             DF.UserAddData(cn, user);
         } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);

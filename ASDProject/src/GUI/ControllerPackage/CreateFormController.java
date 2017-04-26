@@ -50,7 +50,7 @@ public class CreateFormController {
 
         DAO.DAOFacade DF = new DAOFacade();
 
-        try (Connection cn = DBConnection.getCon()) {
+        try (Connection cn = DBConnection.getInstance().getCon()) {
             if (DF.ProductfindUnique(cn, identifier) == null) {
                 DF.ProductAddData(cn, product);
             }

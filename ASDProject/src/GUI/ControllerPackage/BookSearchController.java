@@ -31,7 +31,7 @@ public class BookSearchController {
 
         List<IData> data = null;
 
-        try (Connection cn = DBConnection.getCon()) {
+        try (Connection cn = DBConnection.getInstance().getCon()) {
             data = DF.ItemfindALL(cn);
         } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(BookSearchController.class.getName()).log(Level.SEVERE, null, ex);
@@ -53,7 +53,7 @@ public class BookSearchController {
     public boolean putBookInCart(Item item) {
         UserDAOExtension id = new UserDAOExtension();
 
-        try (Connection cn = DBConnection.getCon()) {
+        try (Connection cn = DBConnection.getInstance().getCon()) {
             id.addCart(cn, GUIController.getController().getUser().getUsername(), item.getId());
             GUIController.getController().setUser(
                     (User) id.findUniqueWithCartAndOwned(

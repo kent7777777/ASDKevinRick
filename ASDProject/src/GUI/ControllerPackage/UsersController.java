@@ -34,7 +34,7 @@ public class UsersController {
     public User[] getUsers() {
         User[] users = null;
         UserDAOExtension ud = new UserDAOExtension();
-        try (Connection cn = DBConnection.getCon()) {
+        try (Connection cn = DBConnection.getInstance().getCon()) {
             List<IData> idatas = ud.findALL(cn);
             users = new User[idatas.size()];
             for (int i = 0; i < idatas.size(); i++) {
@@ -56,7 +56,7 @@ public class UsersController {
         }
 
         UserDAOExtension id = new UserDAOExtension();
-        try (Connection cn = DBConnection.getCon()) {
+        try (Connection cn = DBConnection.getInstance().getCon()) {
             id.AddData(cn, user);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);
@@ -67,7 +67,7 @@ public class UsersController {
 
     public boolean deleteUser(User user) {
         UserDAOExtension id = new UserDAOExtension();
-        try (Connection cn = DBConnection.getCon()) {
+        try (Connection cn = DBConnection.getInstance().getCon()) {
             id.deleteData(cn, user.getUsername());
         } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);

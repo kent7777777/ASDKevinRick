@@ -28,7 +28,7 @@ public class ASDProject {
         UserDAOExtension id = new UserDAOExtension();
         UserFactory factory = new LibraryUserFactory();
         User us = factory.createUser("Admin", "bob", "12345678", "coolbob7777777@gmail.com");
-        try(Connection cn = DBConnection.getCon()){
+        try(Connection cn = DBConnection.getInstance().getCon()){
             id.AddData(cn, us);
         } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(ASDProject.class.getName()).log(Level.SEVERE, null, ex);

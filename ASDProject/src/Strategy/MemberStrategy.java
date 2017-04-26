@@ -27,7 +27,7 @@ public class MemberStrategy implements TransactionStrategy {
     @Override
     public boolean rentItem(User user, Item item) {
         DAO.DAOFacade DF = new DAOFacade();
-        try (Connection cn = DBConnection.getCon()) {
+        try (Connection cn = DBConnection.getInstance().getCon()) {
             Item temp = (Item) DF.ItemfindUnique(cn, Integer.toString(item.getId()));
             if (temp.getOwner() != null) {
                 return false;
@@ -50,7 +50,7 @@ public class MemberStrategy implements TransactionStrategy {
     public double returnItem(User user, Item item) {
         DAOFacade DF = new DAOFacade();
         if (item.getOwner() != null && item.getOwner().getUsername().equals(user.getUsername())) {
-            try (Connection cn = DBConnection.getCon()) {
+            try (Connection cn = DBConnection.getInstance().getCon()) {
                 if (item.getDateDue().isAfter(LocalDate.now().plusDays(1))) {
                     item.setOwner(null);
                     item.setDateDue(null);
@@ -76,7 +76,7 @@ public class MemberStrategy implements TransactionStrategy {
         User us = new Admin("pigrick", null, "lai_yeerick@hotmail.com");
         Item item;
         Transaction t1 = new Transaction(us);
-        try (Connection cn = DBConnection.getCon()) {
+        try (Connection cn = DBConnection.getInstance().getCon()) {
             ItemDAO ids = new ItemDAO();
             item = (Item) ids.findUnique(cn, "1");
 

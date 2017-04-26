@@ -14,10 +14,22 @@ import java.sql.SQLException;
  * @author yeerick
  */
 public class DBConnection {
+    
+    private static DBConnection instance = null;
+    private final String URL = "jdbc:mysql://localhost:3306/KevinRickASD";
+    private final String NAME = "root";
+    private final String PASS = "mumsql";            
+    
+    public static DBConnection getInstance(){
+        if(instance == null){
+            instance = new DBConnection();
+        } 
+        return instance;
+    }
 
-    public static Connection getCon() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public Connection getCon() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         Class.forName("com.mysql.jdbc.Driver").newInstance();
-        Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/KevinRickASD", "root", "12qwasss");
+        Connection cn = DriverManager.getConnection(URL, NAME, PASS);
         return cn;
 
     }

@@ -25,7 +25,7 @@ public class StaffStrategy implements TransactionStrategy {
     @Override
     public boolean rentItem(User user, Item item) {
         DAO.DAOFacade DF = new DAOFacade();
-        try (Connection cn = DBConnection.getCon()) {
+        try (Connection cn = DBConnection.getInstance().getCon()) {
             Item temp = (Item) DF.ItemfindUnique(cn, Integer.toString(item.getId()));
             if (temp.getOwner() != null) {
                 return false;
@@ -48,7 +48,7 @@ public class StaffStrategy implements TransactionStrategy {
     public double returnItem(User user, Item item) {
         DAO.DAOFacade DF = new DAOFacade();
         if (item.getOwner() != null && item.getOwner().getUsername().equals(user.getUsername())) {
-            try (Connection cn = DBConnection.getCon()) {
+            try (Connection cn = DBConnection.getInstance().getCon()) {
                 if (item.getDateDue().isAfter(LocalDate.now().plusDays(1))) {
                     item.setOwner(null);
                     item.setDateDue(null);

@@ -27,7 +27,7 @@ public class LoginController {
         DAO.DAOFacade DF = new DAOFacade();
 
         PasswordAuthentificationChainBuilder pa = new PasswordAuthentificationChainBuilder();
-        try (Connection cn = DBConnection.getCon()) {
+        try (Connection cn = DBConnection.getInstance().getCon()) {
             String token = DF.UserGetToken(cn, username);
             if (token == null) {
                 return false;

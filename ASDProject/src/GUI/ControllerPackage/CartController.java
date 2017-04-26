@@ -28,7 +28,7 @@ public class CartController {
     public boolean removeItem(Item item) {
         DAO.DAOFacade DF = new DAOFacade();
 
-        try (Connection cn = DBConnection.getCon()) {
+        try (Connection cn = DBConnection.getInstance().getCon()) {
             DF.deleteCart(cn, GUIController.getController().getUser().getUsername(), item.getId());
             GUIController.getController().setUser(
                     (User) DF.UserfindUniqueWithCartAndOwned(
@@ -56,7 +56,7 @@ public class CartController {
         DAO.DAOFacade DF = new DAOFacade();
         LocalDate dueDate = null;
 
-        try (Connection cn = DBConnection.getCon()) {
+        try (Connection cn = DBConnection.getInstance().getCon()) {
             for (int i : itemIds) {
                 DF.deleteCart(cn, user.getUsername(), i);
             }
